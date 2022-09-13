@@ -1,6 +1,5 @@
 class Track:
 
-
     def __init__(self, id, name, duration_ms, release_date, uri, album, artists):
         self.id = id
         self.name = name

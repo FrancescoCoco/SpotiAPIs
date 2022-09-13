@@ -17,31 +17,30 @@ public class AlbumController {
     TrackService trackService;
 
     @PostMapping("/addalbum")
-    public Album  saveAlbum (@RequestBody Album album){
+    public Album saveAlbum(@RequestBody Album album) {
         return albumService.saveAlbum(album);
     }
 
     @GetMapping("/findallalbums")
-    public List<Album> findAllAlbum(){
+    public List<Album> findAllAlbum() {
         return albumService.getAllAlbums();
     }
 
     @GetMapping("findalbumbyname/{name}")
-    public Album findAlbumByName(@PathVariable("name") String name){
+    public Album findAlbumByName(@PathVariable("name") String name) {
         return albumService.getAlbumByName(name);
     }
 
     @GetMapping("/findbynameartist/{name}")
-    public List<Album> findByNameArtist(@PathVariable("name") String name){
+    public List<Album> findByNameArtist(@PathVariable("name") String name) {
         return albumService.getAlbumsByArtist(name);
     }
 
 
     @GetMapping("/findbynameoftrack/{name}")
-    public Album findByNameOfTrack(@PathVariable("name") String name){
+    public Album findByNameOfTrack(@PathVariable("name") String name) {
         return trackService.getAlbumByNameofTrack(name);
     }
-
 
 
 }

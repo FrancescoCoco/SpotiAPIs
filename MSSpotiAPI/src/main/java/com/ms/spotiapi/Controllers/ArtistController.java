@@ -23,15 +23,14 @@ public class ArtistController {
     }
 
     @GetMapping("/findallartists")
-    public List<Artist> findAllArtist(){
+    public List<Artist> findAllArtist() {
         return artistService.getAllArtist();
     }
 
     @GetMapping("/findbyname/{name}")
-    public Artist findByArtist(@PathVariable("name") String name){
+    public Artist findByArtist(@PathVariable("name") String name) {
         return artistService.getArtistByName(name);
     }
-
 
 
 }

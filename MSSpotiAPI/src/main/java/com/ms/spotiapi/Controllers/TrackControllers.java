@@ -21,19 +21,19 @@ public class TrackControllers {
     }
 
     @GetMapping("/findalltracks")
-    public List<Track> findAllTracks(){
+    public List<Track> findAllTracks() {
         return trackService.getAllTracks();
     }
 
 
     @GetMapping("/findtrackbyname/{name}")
-    public Track findByNameOfTrack(@PathVariable("name") String name){
+    public Track findByNameOfTrack(@PathVariable("name") String name) {
         return trackService.getTrackByName(name);
     }
 
 
     @GetMapping("/findtracksofalbum/{name}")
-    public List<Track> findTracksOfAlbum(@PathVariable("name") String name){
+    public List<Track> findTracksOfAlbum(@PathVariable("name") String name) {
         return trackService.getTracksOfAlbum(name);
     }
 

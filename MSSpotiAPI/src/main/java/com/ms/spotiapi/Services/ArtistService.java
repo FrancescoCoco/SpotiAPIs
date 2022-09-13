@@ -20,8 +20,8 @@ public class ArtistService {
     @Autowired
     private GenreService genreService;
 
-    public Artist saveArtist(Artist artist){
-        if (artistRepository.findArtistByName(artist.name) != null || artistRepository.findArtistById(artist.getId())!= null) {
+    public Artist saveArtist(Artist artist) {
+        if (artistRepository.findArtistByName(artist.name) != null || artistRepository.findArtistById(artist.getId()) != null) {
             return null;
         } else {
             Set<Genre> genres_artist = control_genre_artist(artist);
@@ -31,14 +31,14 @@ public class ArtistService {
         }
     }
 
-    public Set<Genre> control_genre_artist(Artist artist){
+    public Set<Genre> control_genre_artist(Artist artist) {
         Set<Genre> genres_artist = new HashSet<>();
         for (Genre genre_artist : artist.getGenres()) {
             Genre genre = genreService.getGenreByName(genre_artist.getName());
-            if (genreService.getGenreByName(genre_artist.getName())!= null) {
+            if (genreService.getGenreByName(genre_artist.getName()) != null) {
                 genres_artist.add(genre);
             } else {
-                genre=genreService.saveGenre(genre_artist);
+                genre = genreService.saveGenre(genre_artist);
             }
             genres_artist.add(genre);
         }
@@ -46,11 +46,11 @@ public class ArtistService {
     }
 
 
-    public Artist getArtistByName(String name){
+    public Artist getArtistByName(String name) {
         return artistRepository.findArtistByName(name);
     }
 
-    public List<Artist> getAllArtist(){
+    public List<Artist> getAllArtist() {
         return artistRepository.findAll();
     }
 }

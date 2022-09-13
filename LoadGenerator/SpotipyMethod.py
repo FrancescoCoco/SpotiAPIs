@@ -12,7 +12,6 @@ def authmethod():
     # Lines to set the token for spotify developers
     sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id="2b056bd931cf4615967b4897904b99ea",
 
-
                                                                client_secret="beacf15fa6744b0ba6e2dd96eb7df10f"))
     return sp
 
@@ -24,7 +23,6 @@ def searchmethod(sp, searchstr, limit):
     results = sp.search(q=searchstr, limit=limit)
 
     return results
-
 
 
 # Method for track

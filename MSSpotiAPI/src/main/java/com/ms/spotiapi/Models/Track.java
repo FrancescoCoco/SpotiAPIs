@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="TRACKS")
+@Table(name = "TRACKS")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -39,8 +39,8 @@ public class Track implements Serializable {
     @ManyToMany
     @JoinTable(
             name = "tracks_artists",
-            joinColumns = @JoinColumn(name="track_name",referencedColumnName = "name"),
-            inverseJoinColumns = @JoinColumn(name="artist_name",referencedColumnName = "name")
+            joinColumns = @JoinColumn(name = "track_name", referencedColumnName = "name"),
+            inverseJoinColumns = @JoinColumn(name = "artist_name", referencedColumnName = "name")
     )
     private Set<Artist> artists = new HashSet<>();
 }

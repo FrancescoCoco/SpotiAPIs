@@ -34,24 +34,24 @@ public class TrackService {
 
     public List<Track> getTracksOfAlbum(String name) {
         AlbumService albumService = new AlbumService();
-        if(albumService.getAlbumByName(name)==null){
+        if (albumService.getAlbumByName(name) == null) {
             return null;
         }
         List<Track> tracks = this.getAllTracks();
         List<Track> tracks_album = new ArrayList<>();
-        for(Track trk : tracks){
-            if(trk.getAlbum().getName() == name){
+        for (Track trk : tracks) {
+            if (trk.getAlbum().getName() == name) {
                 tracks_album.add(trk);
             }
         }
         return tracks_album;
     }
 
-    public Album getAlbumByNameofTrack(String name_track){
-        List<Track> tracks =  this.getAllTracks();
+    public Album getAlbumByNameofTrack(String name_track) {
+        List<Track> tracks = this.getAllTracks();
         Album album_found = new Album();
-        for(Track trk: tracks){
-            if(trk.getName()==name_track){
+        for (Track trk : tracks) {
+            if (trk.getName() == name_track) {
                 album_found = trk.getAlbum();
             }
         }
