@@ -4,7 +4,10 @@ import com.ms.spotiapi.Models.Artist;
 import com.ms.spotiapi.Models.Genre;
 import com.ms.spotiapi.Repositories.ArtistRepository;
 import com.ms.spotiapi.Repositories.GenreRepository;
+import io.micrometer.core.instrument.Counter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -45,12 +48,11 @@ public class ArtistService {
         return genres_artist;
     }
 
-
     public Artist getArtistByName(String name) {
         return artistRepository.findArtistByName(name);
     }
 
-    public List<Artist> getAllArtist() {
-        return artistRepository.findAll();
+    public Page<Artist> getAllArtist(Pageable pageable) {
+        return artistRepository.findAll(pageable);
     }
 }

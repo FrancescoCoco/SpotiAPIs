@@ -1,24 +1,28 @@
+import random
+import string
+
 import SpotipyMethod as spMth
 
 
 def main():
+    # Authentication Method with my credentials
     sp = spMth.authmethod()
-    results = spMth.searchmethod(sp, 'cucumba', 20)
-    tracks, albums, artists = spMth.trackmethod(sp, results)
 
-    print("TRACKS: ")
-    for idx, track in enumerate(tracks):
-        print(idx + 1, track.name)
-        for artist in track.artists:
-            print(artist.name)
+    # SEARCH ARTISTS
+    artists_db = spMth.push_item(sp,"artists", 2000)
 
-    print("\nARTISTS: ")
-    for idx, artist in enumerate(artists):
-        print(idx + 1, artist.name)
+    # SEARCH ALBUMS
+    albums_db = spMth.push_item(sp, "albums", 200)
 
-    print("\nALBUM: ")
-    for idx, album in enumerate(albums):
-        print(idx + 1, album.name)
+    # SEARCH TRACKS
+    tracks_db = spMth.push_item(sp,"tracks", 200)
+
+    # RESUME
+    print("Artisti trovati: ",len(artists_db))
+    print("Album trovati: ", len(albums_db))
+    print("Canzoni trovate: ", len(tracks_db))
+
+    
 
 
 if __name__ == "__main__":

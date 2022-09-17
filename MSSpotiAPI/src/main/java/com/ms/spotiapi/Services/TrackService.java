@@ -11,13 +11,11 @@ import java.util.List;
 
 @Service
 public class TrackService {
-
     @Autowired
     TrackRepository trackRepository;
 
     @Autowired
     AlbumService albumService;
-
 
     public Track saveTrack(Track track) {
         return track;
@@ -30,7 +28,6 @@ public class TrackService {
     public Track getTrackByName(String name) {
         return trackRepository.findTrackByName(name);
     }
-
 
     public List<Track> getTracksOfAlbum(String name) {
         AlbumService albumService = new AlbumService();
