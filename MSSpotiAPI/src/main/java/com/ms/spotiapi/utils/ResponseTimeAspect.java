@@ -41,10 +41,10 @@ public class ResponseTimeAspect {
         for(Annotation annotation: annotations){
             if (annotation instanceof ResponseTimeTracking){
                 ResponseTimeTracking responseTimeTracking = (ResponseTimeTracking) annotation;
-                long startTime = System.nanoTime();
+                long startTime = System.currentTimeMillis();
                 result = pjp.proceed();
-                long endTime = System.nanoTime();
-                long TimeTaken = TimeUnit.MILLI.convertFromNano(endTime-startTime);
+                long endTime = System.currentTimeMillis();
+                long TimeTaken = endTime-startTime;
                 list_responses_time.add(TimeTaken);
                 Gauge.builder("response_time_"+method.getName(), list_responses_time, value -> list_responses_time.get(list_responses_time.size()-1))
                         .description("response_time_"+method.getName())

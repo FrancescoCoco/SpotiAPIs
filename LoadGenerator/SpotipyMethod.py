@@ -5,6 +5,7 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from Artist import Artist
 from Album import Album
+from Genre import Genre
 from Track import Track
 
 
@@ -70,16 +71,27 @@ def search_tracks(sp, searchstr, limit):
 # Model artist of an album
 def model_artist_album(sp, artist_album):
     a = sp.artist(artist_album['id'])
+    genres = model_genres(a['genres'])
     artist = Artist(a['id'], a['name'], a['followers']['total'],
-                    a['genres'], a['popularity'], a['uri'])
+                    genres, a['popularity'], a['uri'])
     return artist
+
+
+# Model genres:
+def model_genres(genres):
+    genres_found = []
+    for genre in genres:
+        genre_found = Genre(genre)
+        genres_found.append(genre_found)
+    return genres_found
 
 
 #  Model artist
 def model_artist(sp, artist):
     a = artist
+    genres = model_genres(a['genres'])
     artist = Artist(a['id'], a['name'], a['followers']['total'],
-                    a['genres'], a['popularity'], a['uri'])
+                    genres, a['popularity'], a['uri'])
     return artist
 
 
@@ -123,12 +135,12 @@ def control_itemdb(item, items_db):
 
 
 # PUSH ITEMS ON DB
-def push_item(sp,type_item, value_search):
+def push_item(sp, type_item, value_search):
     lower_upper_alphabet = string.ascii_letters
     items_db = []
     while len(items_db) < value_search:
         random_letters = random.choice(lower_upper_alphabet) + random.choice(lower_upper_alphabet) \
-                        + random.choice(lower_upper_alphabet)
+                         + random.choice(lower_upper_alphabet)
         # SEARCH ARTISTS
         if type_item == 'artists':
             artists = search_artists(sp, random_letters, 50)
@@ -148,7 +160,5 @@ def push_item(sp,type_item, value_search):
                 items_db = control_itemdb(track, items_db)
 
         print(len(items_db))
-
-
 
     return items_db
