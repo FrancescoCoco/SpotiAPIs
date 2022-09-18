@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="ALBUMS")
+@Table(name = "ALBUMS")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -33,8 +33,8 @@ public class Album implements Serializable {
     @ManyToMany
     @JoinTable(
             name = "album_artists",
-            joinColumns = @JoinColumn(name="album_name",referencedColumnName = "name"),
-            inverseJoinColumns = @JoinColumn(name="artist_name",referencedColumnName = "name")
+            joinColumns = @JoinColumn(name = "album_name", referencedColumnName = "name"),
+            inverseJoinColumns = @JoinColumn(name = "artist_name", referencedColumnName = "name")
     )
     public Set<Artist> artists = new HashSet<>();
 

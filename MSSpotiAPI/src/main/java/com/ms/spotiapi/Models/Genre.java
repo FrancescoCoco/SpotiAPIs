@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="GENRES")
+@Table(name = "GENRES")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -22,7 +22,7 @@ public class Genre implements Serializable {
 
     private String name;
 
-    public Genre(String name){
-        this.name  = name;
+    public Genre(String name) {
+        this.name = name;
     }
 }

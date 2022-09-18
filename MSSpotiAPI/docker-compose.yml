@@ -1,0 +1,61 @@
+version: "3.8"
+# All the application to containerize
+services:
+  # Microservice
+  msspotiapi:
+    build: .
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      - spring.datasource.url=jdbc:mysql://spotiapidb:3306/SPOTIAPIDB
+    depends_on:
+      - spotiapidb
+
+
+  # MySQL database
+  spotiapidb:
+    #Necessary because we are on mac
+    platform: linux/x86_64
+    image: "mysql:5.7"
+    restart: always
+    #We use different ports because in my local machine there is a mysql default on 3306 port
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: SPOTIAPIDB
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: Spoti_DB2022
+      MYSQL_ROOT_PASSWORD: Spoti_DB2022
+
+
+#  Observability with Prometheus
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    restart: unless-stopped
+    volumes:
+      - ./data/prometheus/config:/etc/prometheus/
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yaml"
+    ports:
+      - "9090:9090"
+
+
+# Grafana
+  # In the datasource configuration  you need to use the name of the container so prometheus
+  grafana:
+    image: grafana/grafana-oss:8.5.2
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    volumes:
+      - ./data/grafana:/var/lib/grafana
+    user: root
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SERVER_DOMAIN=localhost
+
