@@ -1,12 +1,8 @@
 package com.ms.spotiapi.Models;
 
 import lombok.*;
-import org.hibernate.annotations.ValueGenerationType;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "GENRES")

@@ -2,7 +2,6 @@ package com.ms.spotiapi.Services;
 
 import com.ms.spotiapi.Models.Album;
 import com.ms.spotiapi.Models.Artist;
-import com.ms.spotiapi.Models.Track;
 import com.ms.spotiapi.Repositories.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
