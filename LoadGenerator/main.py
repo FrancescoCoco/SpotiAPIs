@@ -1,16 +1,9 @@
-import random
-import string
-import time
 import time as t
-from datetime import *
-import datetime as dt
-
 import MongoLib as ml
 import PromLib as prl
 import RequestAPIs
 import RequestAPIs as rAPIs
 import SpotipyMethod as spMth
-
 
 def main():
     # Authentication Method with my credentials to spotify for developers
@@ -43,7 +36,7 @@ def main():
         tracks_db = spMth.push_item(sp, "tracks", 10)
         print("Canzoni trovate: ", len(tracks_db))
 
-    # Collects metrics of artists
+    # Collects metrics of find all artists
     if ml.verify_collection(dbmongo, "RT_FindAllArtists"):
         collect_metrics_artist(dbmongo, prom, total_artists)
 
@@ -64,7 +57,6 @@ def collect_metrics_artist(dbmongo, prom, total_artists):
         metric_mongo = prl.get_resp_time_findallartist(prom, n_artists, 'default', 'default')
         list_metrics_mongo.append(metric_mongo)
         x = x + 1
-
     mycol = dbmongo['RT_FindAllArtists']
     mycol.insert_many(list_metrics_mongo)
 

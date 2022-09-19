@@ -4,7 +4,6 @@ import com.ms.spotiapi.Models.Album;
 import com.ms.spotiapi.Services.AlbumService;
 import com.ms.spotiapi.Services.TrackService;
 import com.ms.spotiapi.utils.ResponseTimeTracking;
-import io.micrometer.core.annotation.Timed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

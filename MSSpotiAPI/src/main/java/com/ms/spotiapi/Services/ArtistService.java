@@ -3,16 +3,12 @@ package com.ms.spotiapi.Services;
 import com.ms.spotiapi.Models.Artist;
 import com.ms.spotiapi.Models.Genre;
 import com.ms.spotiapi.Repositories.ArtistRepository;
-import com.ms.spotiapi.Repositories.GenreRepository;
-import io.micrometer.core.instrument.Counter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Service
