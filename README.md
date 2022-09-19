@@ -3,48 +3,54 @@
 
 # SPOTIAPIs
 
-SpotiAPIs represents my thesis project
+`SpotiAPIs` represents my thesis project
 for the master’s degree 
 in Computer Engineering. 
 The goal of this elaborate is 
 to study sensitivity to optimize performance.
 
 ##### This project contains: 
-- `MSSpotiApi`: a microservice which exposes 
-    through which it writes and reads on a 
+- `MSSpotiApi`: a microservice
+    through the APIs, inside that, it is possible to write and read on a 
     relational database, MySQL.
     These endpoints have metrics associated 
     with them, such as response time.
-    It is built by reworking the microservice 
+    It is built by reworking the open source system of APIs
     offered by Spotify.
 
-- `SpotiAPIDB`: a relational database, MySQL. 
+- `SpotiAPIDB`: it is a relational database, MySQL. 
     It is read and written by the microservice. 
-    Allows data persistence.
+    It allows data persistence.
 
-- `Prometheus`: collects the metrics exposed 
+- `Prometheus`: Prometheus collects the metrics exposed 
     by the microservice using a pull mode
 
 - `Grafana`: Grafana is a web application 
     for interactive data visualization 
     and analysis.
 
-- `LoadGenerator`: this element
+- `LoadGenerator`: The load generator 
     is used to generate load 
     on the microservice to test it 
     for performance and scalability
     It also fetches the metrics 
     from prometheus 
     and stores them persistently 
-    in the mongodb database.
+    in the mongodb database, in particular collections.
+
 
 - `SensitivityAnalyzer`: this element 
     deals with analyzing the sensitivity 
     of the metric collected to optimize 
     performance
 
+This is the project's schema: 
+![Schema](/Utils/Structschema.png)
+
 
 ## Documentation
+ - [IntelliJ Idea](https://www.jetbrains.com/idea/)
+ - [PyCharm](https://www.jetbrains.com/pycharm/)
  - [Spotify for developers](https://developer.spotify.com)
  - [Spring Boot](https://spring.io/projects/spring-boot)
  - [Prometheus](https://prometheus.io)
@@ -57,9 +63,50 @@ to study sensitivity to optimize performance.
  - [Sensitivity](https://en.wikipedia.org/wiki/Sensitivity_and_specificity)
 
 
+
 # Deployment
-Description of the all elements 
-and guide to deploy those elements.
+Now describe the all elements inside the projects 
+and create a guide to deploy those elements.
+
+## Prerequisites
+
+### Containers
+- Install [Docker](https://www.docker.com) 
+- Install [docker-compose](https://docs.docker.com/compose/install/)
+
+### Deploy Containers
+The microservice MSSpotiAPIs, 
+the MySQL database SPOTIAPIDB, 
+Prometheus, Grafana are 
+containerized, 
+through the use 
+of docker containers.
+
+These are the steps to execute them: 
+
+- Execute Docker 
+- Open terminal into the folder of MSSpotiAPIs
+- Digit these commands:   
+
+        - docker compose build 
+
+        - docker compose up
+
+### MongoDB
+It is strongly recommended to install 
+[MongoDBCompass](https://www.mongodb.com/products/compass)
+
+
+### IDEs
+
+It is recommended to use 
+- [IntelliJ Idea](https://www.jetbrains.com/idea/)
+    for the spring boot project. 
+
+- [PyCharm](https://www.jetbrains.com/pycharm/) 
+  for the load generator and sensitivity analyzer. 
+
+
 
 ## MSSpotiAPIs
 
@@ -111,7 +158,7 @@ It will then be pulled by prometheus as a Gauge metric.
     | `uri`| `String` | **Required** uri of artist |
 
     #### Example
-        ```
+        
         {
         "id": "120102e0dedededdededee1ec",
         "name":  "artista",  
@@ -127,8 +174,7 @@ It will then be pulled by prometheus as a Gauge metric.
                 ],
         "popularity":"1200031930",
         "uri":"http:spotify:etc"
-        ```
-}
+        }
 ----
 
 #### Albums
@@ -184,7 +230,6 @@ It will then be pulled by prometheus as a Gauge metric.
     | `artists`| `Json` | **Required** artists of the album |
 
     #### Example
-        ```
        {
         "id": "111dddeede3",
         "name": "album",
@@ -367,6 +412,45 @@ It will then be pulled by prometheus as a Gauge metric.
                 ]
             }
 
+
+### Prometheus 
+You can find the configuration file of Prometheus, Prometheus.yaml, inside the MSSpotiAPIs folder. 
+
+### Grafana
+You can find the configuration of Grafana inside the docker-compose.yml file. 
+In the first login you add to insert this follow commands:
+    
+    - username: admin
+    - password: admin
+
+### SPOTIAPIDB 
+SPOTIAPIDB is a relational database MYSQL.
+It contains these entities with these relationship:
+![DBSCHEMA](/Utils/SPOTIAPIDB_SCHEMA)
+
+### Load Generator 
+To execute the load generator is necessary to follow this steps: 
+    
+    - Install library time 
+    - Install library pymongo to do query to MongoDB
+    - Install library prometheus-api-client to do     PromQL query to prometheus
+    - Install library requests to do http-request
+    - Install library spotipy to connect to microservice of spotify
+    - Use python-version 3.8
+
+After that you can run the load generator.
+
+### Sensitive Analyzer 
+In Progress 
+
+### MetricsSpotiAPIs
+It is a database inside a document-based database MongoDB. 
+It contains different collections. 
+Every collection contains, 
+differents metrics depending
+ on different observed endpoints
+
+
     
 
 ## Author Contact 
@@ -377,8 +461,14 @@ It will then be pulled by prometheus as a Gauge metric.
 
 
 
+## `UNIVERSITY`
 
+![UniCT](https://images.squarespace-cdn.com/content/v1/60056c48dfad4a3649200fc0/1612524418763-3HFOBMTU3MLA65DWOGA3/Logo+UniCT?format=2500w)
 
+#### `Official Links`: 
+- [UniCT](https://www.unict.it)
+- [DIEEI](https://www.dieei.unict.it) 
+- [Ingegneria Informatica LM-32](https://www.dieei.unict.it/corsi/lm-32)
 
 
 
