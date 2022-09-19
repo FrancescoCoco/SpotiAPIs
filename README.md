@@ -426,7 +426,7 @@ In the first login you add to insert this follow commands:
 ### SPOTIAPIDB 
 SPOTIAPIDB is a relational database MYSQL.
 It contains these entities with these relationship:
-![DBSCHEMA](/Utils/SPOTIAPIDB_SCHEMA)
+![DBSCHEMA](/Utils/spotiapidbschema.png)
 
 ### Load Generator 
 To execute the load generator is necessary to follow this steps: 
