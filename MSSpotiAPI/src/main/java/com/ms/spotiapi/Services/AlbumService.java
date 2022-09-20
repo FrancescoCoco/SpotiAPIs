@@ -4,6 +4,8 @@ import com.ms.spotiapi.Models.Album;
 import com.ms.spotiapi.Models.Artist;
 import com.ms.spotiapi.Repositories.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,7 +20,6 @@ public class AlbumService {
     @Autowired
     ArtistService artistService;
 
-
     public Album saveAlbum(Album album) {
         if (albumRepository.findAlbumByName(album.getName()) != null) {
             return null;
@@ -32,8 +33,8 @@ public class AlbumService {
         return album;
     }
 
-    public List<Album> getAllAlbums() {
-        return albumRepository.findAll();
+    public Page<Album> getAllAlbums(Pageable pageable) {
+        return albumRepository.findAll(pageable);
     }
 
     public Album getAlbumByName(String name) {
