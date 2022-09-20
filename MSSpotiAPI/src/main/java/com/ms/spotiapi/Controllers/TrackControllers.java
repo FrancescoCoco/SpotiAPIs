@@ -5,6 +5,9 @@ import com.ms.spotiapi.Models.Track;
 import com.ms.spotiapi.Services.TrackService;
 import com.ms.spotiapi.utils.ResponseTimeTracking;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,9 +26,10 @@ public class TrackControllers {
     }
 
     @ResponseTimeTracking
-    @GetMapping("/findalltracks")
-    public List<Track> findAllTracks() {
-        return trackService.getAllTracks();
+    @GetMapping("/findalltracks/{page_size}")
+    public Page<Track> findAllTracks(@PathVariable("page_size") Integer page_size) {
+        Pageable pageable = PageRequest.of(0,page_size);
+        return trackService.getAllTracks(pageable);
     }
 
     @ResponseTimeTracking

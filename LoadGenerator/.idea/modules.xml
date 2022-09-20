@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/LoadGenerator.iml" filepath="$PROJECT_DIR$/.idea/LoadGenerator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../SensitivityAnalyzer/.idea/SensitivityAnalyzer.iml" filepath="$PROJECT_DIR$/../SensitivityAnalyzer/.idea/SensitivityAnalyzer.iml" />
     </modules>
   </component>
 </project>

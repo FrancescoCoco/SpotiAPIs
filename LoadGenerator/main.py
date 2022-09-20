@@ -1,9 +1,20 @@
+"""
+██╗░░░░░░█████╗░░█████╗░██████╗░  ░██████╗░███████╗███╗░░██╗███████╗██████╗░░█████╗░████████╗░█████╗░██████╗░
+██║░░░░░██╔══██╗██╔══██╗██╔══██╗  ██╔════╝░██╔════╝████╗░██║██╔════╝██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗
+██║░░░░░██║░░██║███████║██║░░██║  ██║░░██╗░█████╗░░██╔██╗██║█████╗░░██████╔╝███████║░░░██║░░░██║░░██║██████╔╝
+██║░░░░░██║░░██║██╔══██║██║░░██║  ██║░░╚██╗██╔══╝░░██║╚████║██╔══╝░░██╔══██╗██╔══██║░░░██║░░░██║░░██║██╔══██╗
+███████╗╚█████╔╝██║░░██║██████╔╝  ╚██████╔╝███████╗██║░╚███║███████╗██║░░██║██║░░██║░░░██║░░░╚█████╔╝██║░░██║
+╚══════╝░╚════╝░╚═╝░░╚═╝╚═════╝░  ░╚═════╝░╚══════╝╚═╝░░╚══╝╚══════╝╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝
+This is main of the Load Generator
+"""
+
 import time as t
 import MongoLib as ml
 import PromLib as prl
 import RequestAPIs
 import RequestAPIs as rAPIs
 import SpotipyMethod as spMth
+
 
 def main():
     # Authentication Method with my credentials to spotify for developers
@@ -37,14 +48,14 @@ def main():
         print("Canzoni trovate: ", len(tracks_db))
 
     # Collects metrics of find all artists
-    if ml.verify_collection(dbmongo, "RT_FindAllArtists"):
+    if ml.verify_collection(dbmongo, ""):
         collect_metrics_artist(dbmongo, prom, total_artists)
 
 
 # Collect metrics artist in mongodb
 def collect_metrics_artist(dbmongo, prom, total_artists):
     list_metrics_mongo = []
-    list_elements = list([x for x in range(0, total_artists, 100)])
+    list_elements = list([x for x in range(0, total_artists, 20)])
     total_elements = len(list_elements) - 1
     # Artists
     x = 1

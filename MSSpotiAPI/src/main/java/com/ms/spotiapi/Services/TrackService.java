@@ -4,10 +4,13 @@ import com.ms.spotiapi.Models.Album;
 import com.ms.spotiapi.Models.Track;
 import com.ms.spotiapi.Repositories.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class TrackService {
@@ -21,8 +24,8 @@ public class TrackService {
         return track;
     }
 
-    public List<Track> getAllTracks() {
-        return trackRepository.findAll();
+    public Page<Track> getAllTracks(Pageable pageable) {
+        return trackRepository.findAll(pageable);
     }
 
     public Track getTrackByName(String name) {
@@ -34,10 +37,10 @@ public class TrackService {
         if (albumService.getAlbumByName(name) == null) {
             return null;
         }
-        List<Track> tracks = this.getAllTracks();
+        List<Track> tracks = trackRepository.findAll();
         List<Track> tracks_album = new ArrayList<>();
         for (Track trk : tracks) {
-            if (trk.getAlbum().getName() == name) {
+            if (Objects.equals(trk.getAlbum().getName(), name)) {
                 tracks_album.add(trk);
             }
         }
@@ -45,10 +48,10 @@ public class TrackService {
     }
 
     public Album getAlbumByNameofTrack(String name_track) {
-        List<Track> tracks = this.getAllTracks();
+        List<Track> tracks = trackRepository.findAll();
         Album album_found = new Album();
         for (Track trk : tracks) {
-            if (trk.getName() == name_track) {
+            if (Objects.equals(trk.getName(), name_track)) {
                 album_found = trk.getAlbum();
             }
         }
