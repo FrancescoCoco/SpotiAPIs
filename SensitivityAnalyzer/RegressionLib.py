@@ -66,16 +66,15 @@ def linear_regression(X, y, plot_title, x_name, y_name):
     print(f"intercept: {new_model.intercept_}")
 
     # PLOT
+
+
     plt.figure(figsize=(5, 7))
+
+
 
     plt.scatter(X_train, y_train, color="red", label="train")
     plt.scatter(X_test, y_test, color="blue", label="test")
     plt.plot(X_test, y_pred, color="black", label="prediction")
-
-    plt.text(400, 170, "MSE: " + str(round(mean_squared_error(y_test, y_pred), 3))
-             + "\nr2_score: " + str(round((r2_score(y_test, y_pred)), 3))
-             + "\nIntercept " + str(round(new_model.intercept_, 3))
-             , fontsize=10, bbox=dict(facecolor='red', alpha=0.5))
 
     # Position of the legend
     plt.legend(loc="lower right")
@@ -88,6 +87,11 @@ def linear_regression(X, y, plot_title, x_name, y_name):
 
     # giving a title to my graph
     plt.title(plot_title)
+
+    plt.text(400, 60, "MSE: " + str(round(mean_squared_error(y_test, y_pred), 3))
+             + "\nr2_score: " + str(round((r2_score(y_test, y_pred)), 3))
+             + "\nIntercept " + str(round(new_model.intercept_, 3))
+             , fontsize=10, bbox=dict(facecolor='red', alpha=0.5))
 
     plt.show()
 
@@ -122,13 +126,13 @@ def polynomial_regression(X, y, plot_title, x_name, y_name):
     print(f"Intercept: {intercept}")
 
     # PLOT OUTPUT
-    plt.figure(figsize=(5, 7))
+    plt.figure(figsize=(5, 8))
 
     # Scatter output
     plt.scatter(X_train, y_train, color='red', label="train")  # plotting the training set
     plt.scatter(X_test, y_test, color='blue', label="test")  # plotting the test set
     plt.scatter(X, y_pred, color='black', label="prediction")
-    plt.text(400, 170, "MSE: " + str(round(mean_squared_error(y, y_pred), 3))
+    plt.text(400, 60, "MSE: " + str(round(mean_squared_error(y, y_pred), 3))
              + "\nr2_score: " + str(round(r_sq, 3))
              + "\nIntercept: " + str(round(intercept, 3))
              , fontsize=10, bbox=dict(facecolor='red', alpha=0.5))
@@ -152,7 +156,7 @@ def hist_rt_nartists(response_times_art_def, number_artists, endpoint, cpu):
     df = pd.DataFrame({'response_times': response_times_art_def})
 
     dfp = df.pivot_table(index='response_times', aggfunc='size')
-    dfp.plot(kind='bar', figsize=(7, 8), rot=0, )
+    dfp.plot(kind='bar', figsize=(7, 8), rot=0)
 
     # naming the x axis
     plt.xlabel("response times(ms)")
@@ -161,6 +165,7 @@ def hist_rt_nartists(response_times_art_def, number_artists, endpoint, cpu):
     plt.ylabel("count")
 
     # Plot title
-    plt.title("Endpoints: " + endpoint + "\nCPU: " + cpu
+    plt.title("Endpoints: " + endpoint + "\nCPU_RESERVATION: " + cpu
               + "\nResponse Times counts " + "\nNumber Artists required: "+ str(number_artists))
     plt.show()
+

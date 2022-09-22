@@ -36,10 +36,12 @@ def main():
     total_artists = RequestAPIs.get_all_artists(1)
     total_albums = None
     total_tracks = None
+    cpu_reserv = "1"
+    mem_reserv = "default"
 
     # Post to insert artist
     if total_artists == 0:
-        artists_db = spMth.push_item(sp, "artists", 10000)
+        artists_db = spMth.push_item(sp, "artists", 12000)
         print("Artisti trovati da Spotify in attesa di caricamento tramite il microservizio: ", len(artists_db))
         rAPIs.post_artists(artists_db)
 
@@ -57,13 +59,14 @@ def main():
     total_artists = RequestAPIs.get_all_artists(1)
     # Collects metrics of find all artists
     if ml.verify_collection(dbmongo, "RT_FindAllArtists"):
-        collect_metrics_artist(dbmongo, prom, total_artists, "default", "default")
+        collect_metrics_artist(dbmongo, prom, total_artists, cpu_reserv, mem_reserv)
+
 
     # At this value of number of artists required, we obtain too low response times
-    number_artists = 1200
+    number_artists = 3000
     total_requests = 20
     if ml.verify_collection(dbmongo, "RT_FindDefinedArtists" + str(number_artists)):
-        collect_rt_artists_defined(dbmongo, prom, number_artists, total_requests, "default", "default")
+        collect_rt_artists_defined(dbmongo, prom, number_artists, total_requests, cpu_reserv, mem_reserv)
 
 
 # Collect metrics artist in mongodb

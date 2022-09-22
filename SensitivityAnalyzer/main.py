@@ -24,7 +24,7 @@ from RegressionLib import scatterplot_model, linear_regression, polynomial_regre
 def main():
     # Connection to the mongodb
     dbmongo = ml.mongo_auth()
-    cpu = "default"
+    cpu = "1"
     response_times, number_artist = catch_rt_artist(dbmongo, 'RT_FindAllArtists', cpu)
 
     # plot original model
@@ -41,13 +41,15 @@ def main():
                           + "\nCPU: " + cpu, "number artists", "response time(ms)")
 
     # Model the response times with a certain number of endpoints
-    number_artists = 1200
+    number_artists = 3000
+    defined_artist = True
+    if defined_artist:
+        response_times_art_def, number_artist_def = catch_response_times_by_numberartists(dbmongo,
+                                                                                          "RT_findDefinedArtistsnumber_artists",
+                                                                                          cpu, number_artists)
 
-    response_times_art_def, number_artist_def = catch_response_times_by_numberartists(dbmongo,
-                                                                                      "RT_findDefinedArtistsnumber_artists",
-                                                                                      cpu, number_artists)
-    # Histogram response_times count for artists number defined
-    hist_rt_nartists(response_times_art_def, number_artists, "Endpoint: findallartists", cpu)
+        # Histogram response_times count for artists number defined
+        hist_rt_nartists(response_times_art_def, number_artists, "Endpoint: findallartists", cpu)
 
 
 def catch_rt_artist(dbmongo, collection, cpu):
