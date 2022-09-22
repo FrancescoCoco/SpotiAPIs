@@ -42,9 +42,10 @@ def main():
 
     # Model the response times with a certain number of endpoints
     number_artists = 3000
-    defined_artist = True
 
     # Variable to set after firts plot, default NONE !!
+    defined_artist = None
+
     if defined_artist:
         response_times_art_def, number_artist_def = catch_response_times_by_numberartists(dbmongo,
                                                                                           "RT_findDefinedArtistsnumber_artists",

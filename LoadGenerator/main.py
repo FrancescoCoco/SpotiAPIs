@@ -58,7 +58,7 @@ def main():
 
     total_artists = RequestAPIs.get_all_artists(1)
     # Collects metrics of find all artists
-    if ml.verify_collection(dbmongo, "RT_FindAllArtists",cpu):
+    if ml.verify_collection(dbmongo, "RT_FindAllArtists",cpu_reserv):
         collect_metrics_artist(dbmongo, prom, total_artists, cpu_reserv, mem_reserv)
 
 
@@ -66,8 +66,9 @@ def main():
     number_artists = 3000
     total_requests = 20
 
-    defined_artists = True
+    defined_artists = None
 
+    # Variable to set after firts plot, default NONE !!
     if defined_artists:
         collect_rt_artists_defined(dbmongo, prom, number_artists, total_requests, cpu_reserv, mem_reserv)
 
