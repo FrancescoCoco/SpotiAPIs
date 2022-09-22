@@ -15,7 +15,7 @@ The project contains four branches with different limits and reservations of cpu
 - branch develop1-4: cpus between 0.15(reservation) and 0.25(limit)
 - branch master: follow develop, it rapresents a stable version. It contains all the results 
 
-This is the `DEVELOP BRANCH`
+This is the `MASTER BRANCH`
 
 ##### This project contains: 
 - `MSSpotiApi`: a microservice
