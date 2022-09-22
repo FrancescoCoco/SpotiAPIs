@@ -69,6 +69,9 @@ This is the project's schema:
  - [MongoDB](https://www.mongodb.com)
  - [Python](https://www.python.org)
  - [Sensitivity](https://en.wikipedia.org/wiki/Sensitivity_and_specificity)
+ - [Linear Regression](https://en.wikipedia.org/wiki/Linear_regression)
+ - [Polynomial Regression](https://en.wikipedia.org/wiki/Polynomial_regression)
+
 
 
 
