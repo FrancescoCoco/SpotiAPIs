@@ -41,11 +41,13 @@ def main():
                           + "\nCPU: " + cpu, "number artists", "response time(ms)")
 
     # Model the response times with a certain number of endpoints
-    response_times_art_def, number_artist_def = catch_response_times_by_numberartists(dbmongo, "RT_findDefinedArtistsnumber_artists",
-                                                                cpu,1200)
+    number_artists = 1200
 
-    hist_rt_nartists(response_times_art_def)
-
+    response_times_art_def, number_artist_def = catch_response_times_by_numberartists(dbmongo,
+                                                                                      "RT_findDefinedArtistsnumber_artists",
+                                                                                      cpu, number_artists)
+    # Histogram response_times count for artists number defined
+    hist_rt_nartists(response_times_art_def, number_artists, "Endpoint: findallartists", cpu)
 
 
 def catch_rt_artist(dbmongo, collection, cpu):
