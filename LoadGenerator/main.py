@@ -66,8 +66,9 @@ def main():
     number_artists = 3000
     total_requests = 20
 
-    defined_artists = True
+    defined_artists = None
 
+    # Variable to set after firts plot, default NONE !!
     if defined_artists:
         collect_rt_artists_defined(dbmongo, prom, number_artists, total_requests, cpu_reserv, mem_reserv)
 
