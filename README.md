@@ -9,6 +9,14 @@ in Computer Engineering.
 The goal of this elaborate is 
 to study sensitivity to optimize performance.
 
+The project contains four branches with different limits and reservations of cpus: 
+- branch develop: cpus between 1(resevation) and 2(limit)
+- branch develop1-2: cpus between 0.25(resevation) and 0.5(limit)
+- branch develop1-4: cpus between 0.15(reservation) and 0.25(limit)
+- branch master: follow develop, it rapresents a stable version. It contains all the results 
+
+This is the `DEVELOP BRANCH`
+
 ##### This project contains: 
 - `MSSpotiApi`: a microservice
     through the APIs, inside that, it is possible to write and read on a 
@@ -70,6 +78,15 @@ and create a guide to deploy those elements.
 
 ## Prerequisites
 
+### IDEs
+
+It is recommended to use 
+- [IntelliJ Idea](https://www.jetbrains.com/idea/)
+    for the spring boot project. 
+
+- [PyCharm](https://www.jetbrains.com/pycharm/) 
+  for the load generator and sensitivity analyzer. 
+
 ### Containers
 - Install [Docker](https://www.docker.com) 
 - Install [docker-compose](https://docs.docker.com/compose/install/)
@@ -84,7 +101,16 @@ of docker containers.
 
 These are the steps to execute them: 
 
-- Execute Docker 
+If you want to executes all branches, after switch, you need to follow these steps:
+- Open [IntelliJ Idea](https://www.jetbrains.com/idea/)
+- Open the `MSSpotiAPIs` project 
+- Execute these commands: 
+
+        - maven clean
+
+        - maven build
+
+- Execute [Docker](https://www.docker.com)
 - Open terminal into the folder of MSSpotiAPIs
 - Digit these commands:   
 
@@ -92,19 +118,20 @@ These are the steps to execute them:
 
         - docker compose up
 
+
 ### MongoDB
 It is strongly recommended to install 
 [MongoDBCompass](https://www.mongodb.com/products/compass)
 
-
-### IDEs
-
-It is recommended to use 
-- [IntelliJ Idea](https://www.jetbrains.com/idea/)
-    for the spring boot project. 
-
-- [PyCharm](https://www.jetbrains.com/pycharm/) 
-  for the load generator and sensitivity analyzer. 
+Sometimes after a restart of the pc you can observe this error: 
+    
+    "connect ECONNREFUSED 127.0.0.1:27017” error message
+To resolve this error, open you terminal and digits these commands:
+        
+         sudo rm -rf /tmp/mongodb-27017.sock
+         
+         brew services restart 
+         mongodb-community@'version_number'
 
 
 
@@ -441,7 +468,25 @@ To execute the load generator is necessary to follow this steps:
 After that you can run the load generator.
 
 ### Sensitive Analyzer 
-In Progress 
+To execute the Sensitive Analyzer is necessary to follow this steps: 
+    
+    - Install library pymongo to do query to MongoDB
+    - Install library numpy 
+    - Install library pandas to create pandas-dataframe
+    - Install library matplotlib to plot the results 
+    - Install library sklearn to make linear and polynomial regressions
+    - Use python-version 3.8
+
+Sensitive Analyzer fetches the metrics saved by `Load Generator`. It shuffles the datasets(metrics), and it generates the models. 
+After that it implements a linear regression while before the dataset is divided into train and test sets. 
+After the linear regression, you can observe a polynomial regression to the all dataset. The measures reported are: 
+    
+    - r2_score 
+    - intercept
+    - Mean Square Error MSE 
+
+If you see a measure of response times, that deviates or in excess or in defect from the surrounding ones. It is possible to visualize the number of times with which a response time is repeated in relation to the defined artist number. 
+In the folders utils you can find the results obtained by my execution. 
 
 ### MetricsSpotiAPIs
 It is a database inside a document-based database MongoDB. 
