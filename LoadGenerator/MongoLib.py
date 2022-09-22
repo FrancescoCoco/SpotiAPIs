@@ -20,9 +20,16 @@ def add_item_to_collection(dbmongo, namecollection, item):
     return mycol.insert_one(item)
 
 
-def verify_collection(dbmongo, namecollection):
+def verify_collection(dbmongo, namecollection, cpu):
     if namecollection not in dbmongo.list_collection_names():
         return True
+    results = list(dbmongo[namecollection].find(({
+        "cpu": {"$eq": cpu}
+    })))
+    if len(results) == 0:
+        return True
+    else:
+        return False
 
 
 def get_items_from_collection(dbmongo, namecollection):
