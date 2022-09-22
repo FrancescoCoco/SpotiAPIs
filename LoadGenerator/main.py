@@ -58,7 +58,7 @@ def main():
 
     total_artists = RequestAPIs.get_all_artists(1)
     # Collects metrics of find all artists
-    if ml.verify_collection(dbmongo, "RT_FindAllArtists",cpu):
+    if ml.verify_collection(dbmongo, "RT_FindAllArtists",cpu_reserv):
         collect_metrics_artist(dbmongo, prom, total_artists, cpu_reserv, mem_reserv)
 
 
