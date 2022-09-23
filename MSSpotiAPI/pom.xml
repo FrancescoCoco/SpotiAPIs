@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.ms</groupId>
     <artifactId>SpotiAPI</artifactId>
-    <version>0.005CPU</version>
+    <version>200M</version>
     <name>MSSpotiAPI</name>
     <description>MSSpotiAPI</description>
     <properties>
