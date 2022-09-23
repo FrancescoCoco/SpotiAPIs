@@ -80,7 +80,6 @@ def main():
 
 # Get the response time of artists
 def catch_rt_artist(dbmongo, collection, cpu, memory):
-    dataset = []
     response_times = []
     number_artists = []
     items = ml.get_items_from_collection(dbmongo, collection, cpu, memory)
