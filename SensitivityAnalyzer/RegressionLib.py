@@ -69,7 +69,6 @@ def linear_regression(X, y, plot_title, x_name, y_name):
     # PLOT
 
     plt.figure(figsize=(5, 7))
-
     plt.scatter(X_train, y_train, color="red", label="train")
     plt.scatter(X_test, y_test, color="blue", label="test")
     plt.plot(X_test, y_pred, color="black", label="prediction",linewidth=7.0)
@@ -86,7 +85,7 @@ def linear_regression(X, y, plot_title, x_name, y_name):
     # giving a title to my graph
     plt.title(plot_title)
 
-    plt.text(400, 40, "MSE: " + str(round(mean_squared_error(y_test, y_pred), 3))
+    plt.text(400, 150, "MSE: " + str(round(mean_squared_error(y_test, y_pred), 3))
              + "\nr2_score: " + str(round((r2_score(y_test, y_pred)), 3))
              + "\nIntercept " + str(round(new_model.intercept_, 3))
              , fontsize=10, bbox=dict(facecolor='red', alpha=0.5))
@@ -131,7 +130,7 @@ def polynomial_regression(X, y, plot_title, x_name, y_name, degree: int):
     plt.scatter(X_train, y_train, color='red', label="train")  # plotting the training set
     plt.scatter(X_test, y_test, color='blue', label="test")  # plotting the test set
     plt.scatter(X, y_pred, color='black', label="prediction")
-    plt.text(400, 40,
+    plt.text(400, 150,
              "MSE: " + str(round(mean_squared_error(y, y_pred), 3))
              + "\nr2_score: " + str(round(r_sq, 3))
              + "\nIntercept: " + str(round(intercept, 3))

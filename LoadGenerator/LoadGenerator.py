@@ -14,6 +14,7 @@
 ░╚═════╝░╚══════╝╚═╝░░╚══╝╚══════╝╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝
 This is main of the Load Generator
 """
+import random
 import string
 import time as t
 import MongoLib as ml
@@ -24,8 +25,8 @@ import SpotipyMethod as spMth
 
 
 def main():
-    cpu_reserv = "2"
-    mem_reserv = "default"
+    cpu = "default"
+    mem = "default"
 
     # Authentication Method with my credentials to spotify for developers
     sp = spMth.authmethod()
@@ -36,43 +37,46 @@ def main():
     # Connection to the mongodb
     dbmongo = ml.mongo_auth()
 
-    total_artists = RequestAPIs.get_all_artists(1)
     total_albums = None
     total_tracks = None
 
-    # Post to insert artist
-    if total_artists == 0:
-        artists_db = spMth.push_item(sp, "artists", 12000)
-        print("Artisti trovati da Spotify in attesa di caricamento tramite il microservizio: ", len(artists_db))
+    print("Do you want to add artist in SPOTIAPIDB? y or Y for yes ")
+    added_artist = input()
+    if added_artist == 'y' or added_artist =='Y':
+        print("Choose number of artists that you want to add: Minimum(50)")
+        number_artist = int(input())
+        if number_artist < 50:
+            number_artist = 50
+        artists_db = spMth.push_item(sp, "artists", number_artist)
+        print("Artists founded by spotify, attended to load in the SPOTIAPIDB", len(artists_db))
         rAPIs.post_artists(artists_db)
 
     # Post to insert albums
     if total_albums is not None:
         albums_db = spMth.push_item(sp, "albums", 200)
-        print("Album trovati da Spotify in attesa di caricamento tramite il microservizio: ", len(albums_db))
+        print("Albums founded by spotify, attended to load in the SPOTIAPIDB", len(albums_db))
         rAPIs.post_albums(albums_db)
 
     # Post to insert tracks
     if total_tracks is not None:
         tracks_db = spMth.push_item(sp, "tracks", 10)
-        print("Canzoni trovate: ", len(tracks_db))
+        print("Total track founded: ", len(tracks_db))
 
     total_artists = RequestAPIs.get_all_artists(1)
 
-    # Collects metrics of find all artists
-    if ml.verify_collection(dbmongo, "RT_FindAllArtists", cpu_reserv, mem_reserv):
-        collect_metrics_artist(dbmongo, prom, total_artists, cpu_reserv, mem_reserv)
-
+    # Collects metrics of ENDPOINT RT_FindAllArtists
+    if ml.verify_collection(dbmongo, "RT_FindAllArtists", cpu, mem):
+        collect_metrics_artist(dbmongo, prom, total_artists, cpu, mem)
 
     # Collect response times associated with a number of artists required, defined
-    print("Digita y o Y se vuoi ricalcolare il response time relativo ad un numero di artisti richiesti: ")
+    print("If you want to collect response times of a particular number of artists digits y or Y ")
     defined_artists = str(input())
 
     if defined_artists == 'y' or defined_artists == 'Y':
         total_requests = 20
-        print("Scrivi il numero di artisti di cui vuoi calcolare il response times: ")
+        print("Digit the number of artists  ")
         number_artists = int(input())
-        collect_rt_artists_defined(dbmongo, prom, number_artists, total_requests, cpu_reserv, mem_reserv)
+        collect_rt_artists_defined(dbmongo, prom, number_artists, total_requests, cpu, mem)
 
 
 # Collect metrics artist in mongodb
@@ -85,7 +89,7 @@ def collect_metrics_artist(dbmongo, prom, total_artists, cpu, memory):
     while x <= total_elements:
         n_artists = list_elements[x]
         rAPIs.get_all_artists(n_artists)
-        t.sleep(2)
+        t.sleep(1)
         metric_mongo = prl.get_resp_time_findallartist(prom, n_artists, cpu, memory)
         list_metrics_mongo.append(metric_mongo)
         x = x + 1
@@ -99,11 +103,12 @@ def collect_rt_artists_defined(dbmongo, prom, number_artists, total_request, cpu
     list_metrics_mongo = []
     while x <= total_request:
         rAPIs.get_all_artists(number_artists)
-        t.sleep(2)
+        t.sleep(1)
         metric_mongo = prl.get_resp_time_findallartist(prom, number_artists, cpu, memory)
         list_metrics_mongo.append(metric_mongo)
         x = x + 1
     mycol = dbmongo['RT_findDefinedArtists' + 'number_artists']
+    random.shuffle(list_metrics_mongo)
     mycol.insert_many(list_metrics_mongo)
 
 
