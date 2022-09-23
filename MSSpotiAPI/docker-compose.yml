@@ -18,6 +18,12 @@ services:
       - spring.datasource.url=jdbc:mysql://spotiapidb:3306/SPOTIAPIDB
     depends_on:
       - spotiapidb
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+        reservations:
+          cpus: '1'
 
 
   # MySQL database

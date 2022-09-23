@@ -22,7 +22,7 @@ from RegressionLib import scatterplot_model, linear_regression, polynomial_regre
 
 
 def main():
-    cpu = "default"
+    cpu = "2"
     memory = "default"
 
     # Connection to the mongodb
@@ -72,8 +72,8 @@ def main():
                                                                                           cpu, memory, number_artists)
 
         # Histogram response_times count for artists number defined
-        bin_space = 100
-        bin_width = 50
+        bin_space = 10
+        bin_width = 10
         hist_rt_nartists(response_times_art_def, number_artists,
                          "Endpoint: findallartists" + "\nCPU: " + cpu + "\nMemory:" + memory, cpu, bin_space, bin_width)
 
