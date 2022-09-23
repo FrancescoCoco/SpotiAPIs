@@ -44,7 +44,7 @@ def main():
     # Choose number of polynomial regression that you want to plot
     print("\nBefore to plot polynomial regressions, choose the number of polynomial regressions that you want to plot: (Minimum 1)" )
     number_plot_pr = int(input())
-
+    
     if number_plot_pr == 0:
         number_plot_pr = 1
 
@@ -67,6 +67,7 @@ def main():
         print("Write number artists ")
         number_artists = int(input())
         # Fetch response times associated with a number of artists required, defined
+
         response_times_art_def, number_artist_def = catch_response_times_by_numberartists(dbmongo,
                                                                                           "RT_findDefinedArtistsnumber_artists",
                                                                                           cpu, memory, number_artists)
