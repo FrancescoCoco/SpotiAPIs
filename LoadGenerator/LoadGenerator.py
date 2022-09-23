@@ -24,6 +24,9 @@ import SpotipyMethod as spMth
 
 
 def main():
+    cpu_reserv = "2"
+    mem_reserv = "default"
+
     # Authentication Method with my credentials to spotify for developers
     sp = spMth.authmethod()
 
@@ -36,8 +39,6 @@ def main():
     total_artists = RequestAPIs.get_all_artists(1)
     total_albums = None
     total_tracks = None
-    cpu_reserv = "1"
-    mem_reserv = "default"
 
     # Post to insert artist
     if total_artists == 0:
@@ -57,19 +58,20 @@ def main():
         print("Canzoni trovate: ", len(tracks_db))
 
     total_artists = RequestAPIs.get_all_artists(1)
+
     # Collects metrics of find all artists
-    if ml.verify_collection(dbmongo, "RT_FindAllArtists",cpu_reserv):
+    if ml.verify_collection(dbmongo, "RT_FindAllArtists", cpu_reserv, mem_reserv):
         collect_metrics_artist(dbmongo, prom, total_artists, cpu_reserv, mem_reserv)
 
 
-    # At this value of number of artists required, we obtain too low response times
-    number_artists = 3000
-    total_requests = 20
+    # Collect response times associated with a number of artists required, defined
+    print("Digita y o Y se vuoi ricalcolare il response time relativo ad un numero di artisti richiesti: ")
+    defined_artists = str(input())
 
-    defined_artists = None
-
-    # Variable to set after firts plot, default NONE !!
-    if defined_artists:
+    if defined_artists == 'y' or defined_artists == 'Y':
+        total_requests = 20
+        print("Scrivi il numero di artisti di cui vuoi calcolare il response times: ")
+        number_artists = int(input())
         collect_rt_artists_defined(dbmongo, prom, number_artists, total_requests, cpu_reserv, mem_reserv)
 
 
@@ -81,10 +83,9 @@ def collect_metrics_artist(dbmongo, prom, total_artists, cpu, memory):
     # Artists
     x = 1
     while x <= total_elements:
-        t.sleep(1)
         n_artists = list_elements[x]
         rAPIs.get_all_artists(n_artists)
-        t.sleep(1)
+        t.sleep(2)
         metric_mongo = prl.get_resp_time_findallartist(prom, n_artists, cpu, memory)
         list_metrics_mongo.append(metric_mongo)
         x = x + 1
@@ -97,9 +98,8 @@ def collect_rt_artists_defined(dbmongo, prom, number_artists, total_request, cpu
     x = 1
     list_metrics_mongo = []
     while x <= total_request:
-        t.sleep(1)
         rAPIs.get_all_artists(number_artists)
-        t.sleep(1)
+        t.sleep(2)
         metric_mongo = prl.get_resp_time_findallartist(prom, number_artists, cpu, memory)
         list_metrics_mongo.append(metric_mongo)
         x = x + 1
