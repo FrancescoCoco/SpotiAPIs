@@ -9,6 +9,7 @@
 
 import matplotlib.pyplot as plt
 import numpy
+import numpy as np
 import pandas as pd
 from sklearn import linear_model
 from sklearn.metrics import mean_squared_error, r2_score
@@ -152,11 +153,21 @@ def polynomial_regression(X, y, plot_title, x_name, y_name, degree: int):
 
 
 # Histogram which counts number that a response times of find all artists with a number of artists defined, is repeating.
-def hist_rt_nartists(response_times_art_def, number_artists, endpoint, cpu):
-    df = pd.DataFrame({'response_times': response_times_art_def})
+def hist_rt_nartists(response_times_art_def, number_artists, endpoint, cpu, bin_space, bin_width):
+    rts = []
+    for rt in response_times_art_def:
+        count = response_times_art_def.count(rt)
+        element = {"count": count, "response_times": int(rt)}
+        if element not in rts:
+            print(element)
+            rts.append(element)
+    df = pd.DataFrame(rts)
 
-    dfp = df.pivot_table(index='response_times', aggfunc='size')
-    dfp.plot(kind='bar', figsize=(7, 8), rot=0)
+    # PLOT OUTPUT
+    plt.figure(figsize=(5, 8))
+
+    # Histogram
+    plt.hist(df, bins=np.arange(min(df['response_times']), max(df['response_times']) + bin_space, bin_width), histtype='stepfilled')
 
     # naming the x axis
     plt.xlabel("response times(ms)")
@@ -166,4 +177,5 @@ def hist_rt_nartists(response_times_art_def, number_artists, endpoint, cpu):
 
     # Plot title
     plt.title("Histogram: " + endpoint + "\nNumber Artists required: " + str(number_artists))
+
     plt.show()
