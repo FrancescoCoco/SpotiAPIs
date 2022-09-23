@@ -153,7 +153,7 @@ def polynomial_regression(X, y, plot_title, x_name, y_name, degree: int):
 
 
 # Histogram which counts number that a response times of find all artists with a number of artists defined, is repeating.
-def hist_rt_nartists(response_times_art_def, number_artists, endpoint, cpu):
+def hist_rt_nartists(response_times_art_def, number_artists, endpoint, cpu, bin_space, bin_width):
 
     rts = []
     for rt in response_times_art_def:
@@ -168,7 +168,7 @@ def hist_rt_nartists(response_times_art_def, number_artists, endpoint, cpu):
     plt.figure(figsize=(5, 8))
 
     # Histogram
-    plt.hist(df, bins=np.arange(min(df['response_times']), max(df['response_times']) + 100, 50), histtype='stepfilled')
+    plt.hist(df, bins=np.arange(min(df['response_times']), max(df['response_times']) + bin_space, bin_width), histtype='stepfilled')
 
     # naming the x axis
     plt.xlabel("response times(ms)")

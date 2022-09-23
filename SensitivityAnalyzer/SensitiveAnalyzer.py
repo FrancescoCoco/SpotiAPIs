@@ -42,9 +42,10 @@ def main():
 
     # POLYNOMIAL REGRESSIONS
     # Choose number of polynomial regression that you want to plot
-    print("\nBefore to plot polynomial regressions, choose the number of polynomial regressions that you want to plot: (Minimum 1)" )
+    print(
+        "\nBefore to plot polynomial regressions, choose the number of polynomial regressions that you want to plot: (Minimum 1)")
     number_plot_pr = int(input())
-    
+
     if number_plot_pr == 0:
         number_plot_pr = 1
 
@@ -53,7 +54,7 @@ def main():
         print("Choose degree of polynomial regression: Minimum 2, Maximum 8 ")
         degree = int(input())
         if degree < 2 or degree > 8:
-            degree = 2 # parameter to express the degree of polynomial regression
+            degree = 2  # parameter to express the degree of polynomial regression
         polynomial_regression(number_artist, response_times, "Polynomial Regression\nEndpoint: findallartists"
                               + "\nCPU: " + cpu + "\nMemory:" + memory, "number artists", "response time(ms)", degree)
 
@@ -73,13 +74,14 @@ def main():
                                                                                           cpu, memory, number_artists)
 
         # Histogram response_times count for artists number defined
+        bin_space = 100
+        bin_width = 50
         hist_rt_nartists(response_times_art_def, number_artists,
-                         "Endpoint: findallartists" + "\nCPU: " + cpu + "\nMemory:" + memory, cpu)
+                         "Endpoint: findallartists" + "\nCPU: " + cpu + "\nMemory:" + memory, cpu, bin_space, bin_width)
 
 
 # Get the response time of artists
 def catch_rt_artist(dbmongo, collection, cpu, memory):
-    dataset = []
     response_times = []
     number_artists = []
     items = ml.get_items_from_collection(dbmongo, collection, cpu, memory)
