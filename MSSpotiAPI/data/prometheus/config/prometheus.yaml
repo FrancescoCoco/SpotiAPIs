@@ -11,7 +11,7 @@ scrape_configs:
     metrics_path: '/actuator/prometheus'
 
     #Time period where the information were fetched from the endpoint known as metrics_path
-    scrape_interval: 5s
+    scrape_interval: 1s
 
     static_configs:
       # we define the target application of the job it was msspotiapi. In this case we define the endpoint with port

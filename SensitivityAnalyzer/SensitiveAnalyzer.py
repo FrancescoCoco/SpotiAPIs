@@ -32,7 +32,7 @@ def main():
     response_times, number_artist = catch_rt_artist(dbmongo, 'RT_FindAllArtists', cpu, memory)
 
     # plot original model
-    scatterplot_model(number_artist, response_times, "Model\nEndpoint: findallartists"
+    scatterplot_model(number_artist, response_times, "Endpoint: findallartists"
                       + "\nCPU: " + cpu + "\nMemory:" + memory,
                       "number artists", "response time(ms)")
 
@@ -40,17 +40,31 @@ def main():
     linear_regression(number_artist, response_times, "Linear Regression\nEndpoint: findallartists"
                       + "\nCPU: " + cpu + "\nMemory:" + memory, "number artists", "response time(ms)")
 
-    # polynomial regression
-    degree = 3 # parameter to express the degree of polynomial regression
-    polynomial_regression(number_artist, response_times, "Polynomial Regression\nEndpoint: findallartists"
-                          + "\nCPU: " + cpu + "\nMemory:" + memory, "number artists", "response time(ms)",3)
+    # POLYNOMIAL REGRESSIONS
+    # Choose number of polynomial regression that you want to plot
+    print("\nBefore to plot polynomial regressions, choose the number of polynomial regressions that you want to plot: (Minimum 1)" )
+    number_plot_pr = int(input())
+
+    if number_plot_pr == 0:
+        number_plot_pr = 1
+
+    x = 1
+    while x <= number_plot_pr:
+        print("Choose degree of polynomial regression: Minimum 2, Maximum 8 ")
+        degree = int(input())
+        if degree < 2 or degree > 8:
+            degree = 2 # parameter to express the degree of polynomial regression
+        polynomial_regression(number_artist, response_times, "Polynomial Regression\nEndpoint: findallartists"
+                              + "\nCPU: " + cpu + "\nMemory:" + memory, "number artists", "response time(ms)", degree)
+
+        x = x + 1
 
     # Question if you want to plot  response times associated with a number of artists defined
-    print("Scrivi y se vuoi plottare l'istogramma dei response times calcolati su un numero di artisti definiti ")
+    print("\nWrite y or Y if you want to plot histogram of response times of a particular number of artists")
     defined_artists = str(input())
 
-    if defined_artists == 'y':
-        print("Scrivi il numero di artisti di cui vuoi plottare il response times: ")
+    if defined_artists == 'y' or defined_artists == "Y":
+        print("Write number artists ")
         number_artists = int(input())
         # Fetch response times associated with a number of artists required, defined
         response_times_art_def, number_artist_def = catch_response_times_by_numberartists(dbmongo,
@@ -62,6 +76,7 @@ def main():
                          "Endpoint: findallartists" + "\nCPU: " + cpu + "\nMemory:" + memory, cpu)
 
 
+# Get the response time of artists
 def catch_rt_artist(dbmongo, collection, cpu, memory):
     dataset = []
     response_times = []
