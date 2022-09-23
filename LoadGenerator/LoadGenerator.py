@@ -85,7 +85,7 @@ def collect_metrics_artist(dbmongo, prom, total_artists, cpu, memory):
     while x <= total_elements:
         n_artists = list_elements[x]
         rAPIs.get_all_artists(n_artists)
-        t.sleep(2)
+        t.sleep(1)
         metric_mongo = prl.get_resp_time_findallartist(prom, n_artists, cpu, memory)
         list_metrics_mongo.append(metric_mongo)
         x = x + 1
@@ -99,7 +99,7 @@ def collect_rt_artists_defined(dbmongo, prom, number_artists, total_request, cpu
     list_metrics_mongo = []
     while x <= total_request:
         rAPIs.get_all_artists(number_artists)
-        t.sleep(2)
+        t.sleep(1)
         metric_mongo = prl.get_resp_time_findallartist(prom, number_artists, cpu, memory)
         list_metrics_mongo.append(metric_mongo)
         x = x + 1
