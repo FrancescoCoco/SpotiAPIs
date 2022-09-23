@@ -24,11 +24,12 @@ def add_item_to_collection(dbmongo: Database[Mapping[str, Any]], namecollection,
     return mycol.insert_one(item)
 
 
-def verify_collection(dbmongo, namecollection, cpu):
+def verify_collection(dbmongo, namecollection, cpu, memory):
     if namecollection not in dbmongo.list_collection_names():
         return True
     results = list(dbmongo[namecollection].find(({
-        "cpu": {"$eq": cpu}
+        "cpu": {"$eq": cpu},
+        "memory": {"$eq": memory}
     })))
     if len(results) == 0:
         return True
@@ -36,14 +37,17 @@ def verify_collection(dbmongo, namecollection, cpu):
         return False
 
 
-def get_items_from_collection(dbmongo: Database[Mapping[str, Any]], namecollection, cpu):
+def get_items_from_collection(dbmongo: Database[Mapping[str, Any]], namecollection, cpu, memory):
     return dbmongo.get_collection(namecollection).find({
-        "cpu": {"$eq": cpu}
+        "cpu": {"$eq": cpu},
+        "memory": {"$eq": memory}
     })
 
 
-def get_items_from_collection_by_numberartists(dbmongo: Database[Mapping[str, Any]], namecollection, cpu, number_artists):
+def get_items_from_collection_by_numberartists(dbmongo: Database[Mapping[str, Any]], namecollection, cpu, memory,
+                                               number_artists):
     return dbmongo.get_collection(namecollection).find({
         "cpu": {"$eq": cpu},
-        "number_artists":{"$eq": number_artists}
+        "memory": {"$eq": memory},
+        "number_artists": {"$eq": number_artists}
     })

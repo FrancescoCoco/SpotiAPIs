@@ -24,7 +24,6 @@ def get_all_metrics(prom: PrometheusConnect):
 
 # get response time of find all artists:
 def get_resp_time_findallartist(prom: PrometheusConnect, nartists, cpu, memory):
-    time.sleep(1)
     metrics = prom.custom_query(query="response_time_findAllArtist")
     for metric in metrics:
         response_time = metric['value'][1]

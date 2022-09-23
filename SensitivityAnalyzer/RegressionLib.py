@@ -40,7 +40,7 @@ def linear_regression(X, y, plot_title, x_name, y_name):
     X = numpy.array(X).reshape(-1, 1)
     y = numpy.array(y)
     # Split the dataset into training and test sets
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
 
     # Create linear regression object
     regr = linear_model.LinearRegression()
@@ -49,10 +49,11 @@ def linear_regression(X, y, plot_title, x_name, y_name):
     new_model = regr.fit(X_train, y_train)
 
     # Make predicion
-    y_pred = regr.predict(X_test)
+    y_pred = new_model.predict(X_test)
 
     # PRINT RESULTS
     print("\nLinear Regression:")
+
     # Coefficients
     print("Coefficients:", regr.coef_)
 
@@ -67,14 +68,11 @@ def linear_regression(X, y, plot_title, x_name, y_name):
 
     # PLOT
 
-
     plt.figure(figsize=(5, 7))
-
-
 
     plt.scatter(X_train, y_train, color="red", label="train")
     plt.scatter(X_test, y_test, color="blue", label="test")
-    plt.plot(X_test, y_pred, color="black", label="prediction")
+    plt.plot(X_test, y_pred, color="black", label="prediction",linewidth=7.0)
 
     # Position of the legend
     plt.legend(loc="lower right")
@@ -88,7 +86,7 @@ def linear_regression(X, y, plot_title, x_name, y_name):
     # giving a title to my graph
     plt.title(plot_title)
 
-    plt.text(400, 60, "MSE: " + str(round(mean_squared_error(y_test, y_pred), 3))
+    plt.text(400, 40, "MSE: " + str(round(mean_squared_error(y_test, y_pred), 3))
              + "\nr2_score: " + str(round((r2_score(y_test, y_pred)), 3))
              + "\nIntercept " + str(round(new_model.intercept_, 3))
              , fontsize=10, bbox=dict(facecolor='red', alpha=0.5))
@@ -97,14 +95,14 @@ def linear_regression(X, y, plot_title, x_name, y_name):
 
 
 #  Polynomial regression
-def polynomial_regression(X, y, plot_title, x_name, y_name):
+def polynomial_regression(X, y, plot_title, x_name, y_name, degree: int):
     X = numpy.array(X).reshape(-1, 1)
     y = numpy.array(y)
 
     # Split the dataset into training and test sets
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
 
-    poly_regr = PolynomialFeatures(degree=5)  # our polynomial model is of order
+    poly_regr = PolynomialFeatures(degree=degree)  # our polynomial model is of order
     X_poly = poly_regr.fit_transform(X)  # transforms the features to the polynomial form
 
     lin_reg_2 = linear_model.LinearRegression()  # creates a linear regression object
@@ -121,6 +119,7 @@ def polynomial_regression(X, y, plot_title, x_name, y_name):
 
     # Print value
     print("\nPolynomial regression:")
+    print(f"\nCoefficients: {coefficients}")
     print(f"Mean Squared error: {mean_squared_error(y, y_pred)}")
     print(f"Coefficient of determination: {r_sq}")
     print(f"Intercept: {intercept}")
@@ -132,9 +131,11 @@ def polynomial_regression(X, y, plot_title, x_name, y_name):
     plt.scatter(X_train, y_train, color='red', label="train")  # plotting the training set
     plt.scatter(X_test, y_test, color='blue', label="test")  # plotting the test set
     plt.scatter(X, y_pred, color='black', label="prediction")
-    plt.text(400, 60, "MSE: " + str(round(mean_squared_error(y, y_pred), 3))
+    plt.text(400, 40,
+             "MSE: " + str(round(mean_squared_error(y, y_pred), 3))
              + "\nr2_score: " + str(round(r_sq, 3))
              + "\nIntercept: " + str(round(intercept, 3))
+             + "\nDegree: " + str(degree)
              , fontsize=10, bbox=dict(facecolor='red', alpha=0.5))
 
     # naming the x axis
@@ -165,7 +166,5 @@ def hist_rt_nartists(response_times_art_def, number_artists, endpoint, cpu):
     plt.ylabel("count")
 
     # Plot title
-    plt.title("Endpoints: " + endpoint + "\nCPU_RESERVATION: " + cpu
-              + "\nResponse Times counts " + "\nNumber Artists required: "+ str(number_artists))
+    plt.title("Histogram: " + endpoint + "\nNumber Artists required: " + str(number_artists))
     plt.show()
-

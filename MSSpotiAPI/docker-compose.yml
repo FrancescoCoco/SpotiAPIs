@@ -23,7 +23,7 @@ services:
         limits:
           cpus: "2.0"
         reservations:
-          cpus: "1.0"
+          cpus: "2.0"
 
 
   # MySQL database
@@ -40,6 +40,7 @@ services:
       MYSQL_USER: admin
       MYSQL_PASSWORD: Spoti_DB2022
       MYSQL_ROOT_PASSWORD: Spoti_DB2022
+    # To main persistence of db
     volumes:
       - ./data/mysql_data:/var/lib/mysql
 
