@@ -14,6 +14,7 @@
 ░╚═════╝░╚══════╝╚═╝░░╚══╝╚══════╝╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝
 This is main of the Load Generator
 """
+import random
 import string
 import time as t
 import MongoLib as ml
@@ -24,8 +25,8 @@ import SpotipyMethod as spMth
 
 
 def main():
-    cpu_reserv = "2"
-    mem_reserv = "default"
+    cpu = "2"
+    mem = "default"
 
     # Authentication Method with my credentials to spotify for developers
     sp = spMth.authmethod()
@@ -107,6 +108,7 @@ def collect_rt_artists_defined(dbmongo, prom, number_artists, total_request, cpu
         list_metrics_mongo.append(metric_mongo)
         x = x + 1
     mycol = dbmongo['RT_findDefinedArtists' + 'number_artists']
+    random.shuffle(list_metrics_mongo)
     mycol.insert_many(list_metrics_mongo)
 
 

@@ -83,10 +83,6 @@ def catch_rt_artist(dbmongo, collection, cpu, memory):
     number_artists = []
     items = ml.get_items_from_collection(dbmongo, collection, cpu, memory)
     for item in items:
-        dataset.append(item)
-    # It's important to shuffle the datasets
-    random.shuffle(dataset)
-    for item in dataset:
         number_artists.append(int(item['number_artists']))
         response_times.append(int(item['response_time']))
     return response_times, number_artists
