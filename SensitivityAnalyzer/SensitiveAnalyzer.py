@@ -22,8 +22,8 @@ from RegressionLib import scatterplot_model, linear_regression, polynomial_regre
 
 
 def main():
-    cpu = "0.005"
-    memory = "default"
+    cpu = "0.5"
+    memory = "200M"
 
     # Connection to the mongodb
     dbmongo = ml.mongo_auth()
