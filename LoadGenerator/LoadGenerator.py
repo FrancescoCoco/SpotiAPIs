@@ -25,7 +25,7 @@ import SpotipyMethod as spMth
 
 
 def main():
-    cpu = "2"
+    cpu = "0.005"
     mem = "default"
 
     # Authentication Method with my credentials to spotify for developers

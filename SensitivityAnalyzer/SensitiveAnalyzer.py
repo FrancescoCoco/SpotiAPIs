@@ -22,7 +22,7 @@ from RegressionLib import scatterplot_model, linear_regression, polynomial_regre
 
 
 def main():
-    cpu = "2"
+    cpu = "0.005"
     memory = "default"
 
     # Connection to the mongodb
