@@ -72,13 +72,14 @@ def main():
                                                                                           cpu, memory, number_artists)
 
         # Histogram response_times count for artists number defined
+        bin_space = 100
+        bin_width = 50
         hist_rt_nartists(response_times_art_def, number_artists,
-                         "Endpoint: findallartists" + "\nCPU: " + cpu + "\nMemory:" + memory, cpu)
+                         "Endpoint: findallartists" + "\nCPU: " + cpu + "\nMemory:" + memory, cpu, bin_space, bin_width)
 
 
 # Get the response time of artists
 def catch_rt_artist(dbmongo, collection, cpu, memory):
-    dataset = []
     response_times = []
     number_artists = []
     items = ml.get_items_from_collection(dbmongo, collection, cpu, memory)
