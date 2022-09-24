@@ -21,9 +21,9 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.005"
+          memory: 200M
         reservations:
-          cpus: "0.0025"
+          memory: 100M
 
 
   # MySQL database
