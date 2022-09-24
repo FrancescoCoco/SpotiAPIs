@@ -1,3 +1,3 @@
 FROM openjdk:17
-COPY target/SpotiAPI-DEV.jar MSSpotiapi.jar
+COPY target/SpotiAPI-DEVLIM.jar MSSpotiapi.jar
 ENTRYPOINT ["java", "-jar", "MSSpotiapi.jar"]

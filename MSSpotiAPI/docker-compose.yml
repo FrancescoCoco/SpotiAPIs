@@ -18,6 +18,14 @@ services:
       - spring.datasource.url=jdbc:mysql://spotiapidb:3306/SPOTIAPIDB
     depends_on:
       - spotiapidb
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: '250M'
+        reservations:
+          cpus: '0.5'
+          memory: '200M'
 
 
   # MySQL database
@@ -37,6 +45,14 @@ services:
     # To main persistence of db
     volumes:
       - ./data/mysql_data:/var/lib/mysql
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: '250M'
+        reservations:
+          cpus: '0.5'
+          memory: '200M'
 
 #  Observability with Prometheus
   prometheus:

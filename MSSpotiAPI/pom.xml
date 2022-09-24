@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.ms</groupId>
     <artifactId>SpotiAPI</artifactId>
-    <version>DEV</version>
+    <version>DEVLIM</version>
     <name>MSSpotiAPI</name>
     <description>MSSpotiAPI</description>
     <properties>

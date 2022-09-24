@@ -25,8 +25,8 @@ import SpotipyMethod as spMth
 
 
 def main():
-    cpu = "default"
-    mem = "default"
+    cpu = "limitMSDB"
+    mem = "limitMSDB"
 
     # Authentication Method with my credentials to spotify for developers
     sp = spMth.authmethod()
@@ -93,6 +93,7 @@ def collect_metrics_artist(dbmongo, prom, total_artists, cpu, memory):
         metric_mongo = prl.get_resp_time_findallartist(prom, n_artists, cpu, memory)
         list_metrics_mongo.append(metric_mongo)
         x = x + 1
+    random.shuffle(list_metrics_mongo)
     mycol = dbmongo['RT_FindAllArtists']
     mycol.insert_many(list_metrics_mongo)
 
