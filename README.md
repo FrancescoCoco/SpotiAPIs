@@ -10,12 +10,14 @@ The goal of this elaborate is
 to study sensitivity to optimize performance.
 
 The project contains four branches with different limits and reservations of CPUs and memory : 
-- branch develop: no limit for use of CPUs or memory
-- branch dev-0.005CPUs: CPUs limit to 0.005 and 0.0020 of reversations.
-- branch dev-200M: memory limit to 200M
-- branch dev-2CPUs: CPUs limit to 2 and 1 of reservation 
-- branch dev-200M-0.5CPUs: Memory limit to 200M and 0.5 CPUs
-- branch master: follow develop, it rapresents a stable version. It contains all the results 
+- branch `develop`: no limit for use of CPUs or memory
+- branch `dev-0.005CPUs`: CPUs limit to 0.005 and 0.0020 of reversations.
+- branch `dev-200M`: memory limit to 200M
+- branch `dev-2CPUs`: CPUs limit to 2 and 1 of reservation 
+- branch `dev-200M-0.5CPUs`: Memory limit to 200M and 0.5 CPUs
+- branch `dev-LIMITMDSDB`: both microservice `msspotiapi` and the database `spotiapidb` are limited with: 
+  1CPUs and 250M of memory
+- branch `master`: follow develop, it rapresents a stable version. It contains all the results 
 
 This is the `DEV-2CPUs BRANCH`
 
