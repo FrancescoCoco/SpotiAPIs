@@ -17,7 +17,7 @@ The project contains four branches with different limits and reservations of CPU
 - branch dev-200M-0.5CPUs: Memory limit to 200M and 0.5 CPUs
 - branch master: follow develop, it rapresents a stable version. It contains all the results 
 
-This is the `DEVELOP BRANCH`
+This is the `DEV-LIMITMSDB BRANCH`
 
 ##### This project contains: 
 - `MSSpotiApi`: a microservice
