@@ -9,7 +9,7 @@ in Computer Engineering.
 The goal of this elaborate is 
 to study sensitivity to optimize performance.
 
-The project contains four branches with different limits and reservations of CPUs and memory : 
+The project contains seven branches with different limits and reservations of CPUs and memory : 
 - branch `develop`: no limit for use of CPUs or memory
 - branch `dev-0.005CPUs`: CPUs limit to 0.005 and 0.0020 of reversations.
 - branch `dev-200M`: memory limit to 200M
