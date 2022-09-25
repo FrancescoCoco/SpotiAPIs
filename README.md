@@ -1,7 +1,4 @@
-
-# IN PROGRESS 
-
-# SPOTIAPIs
+# `SPOTIAPIs`
 
 `SpotiAPIs` represents my thesis project
 for the master’s degree 
