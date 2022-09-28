@@ -31,5 +31,14 @@ def get_resp_time_findallartist(prom: PrometheusConnect, nartists, cpu, memory):
         print(my_metric_mongo)
         return my_metric_mongo
 
+# get response time of find all albums:
+def get_resp_time_findallalbums(prom: PrometheusConnect, nalbums, cpu, memory):
+    metrics = prom.custom_query(query="response_time_findAllAlbum")
+    for metric in metrics:
+        response_time = metric['value'][1]
+        my_metric_mongo = {'response_time': response_time,'number_albums': nalbums, 'cpu': cpu, 'memory': memory}
+        print(my_metric_mongo)
+        return my_metric_mongo
+
 
 
