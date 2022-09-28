@@ -37,7 +37,7 @@ def scatterplot_model(x, y, plot_titles, x_name, y_name):
 
 
 # Linear Regression
-def linear_regression(X, y, plot_title, x_name, y_name):
+def linear_regression(X, y, plot_title, x_name, y_name, tx, ty):
     X = numpy.array(X).reshape(-1, 1)
     y = numpy.array(y)
     # Split the dataset into training and test sets
@@ -86,7 +86,7 @@ def linear_regression(X, y, plot_title, x_name, y_name):
     # giving a title to my graph
     plt.title(plot_title)
 
-    plt.text(400, 150, "MSE: " + str(round(mean_squared_error(y_test, y_pred), 3))
+    plt.text(tx, ty, "MSE: " + str(round(mean_squared_error(y_test, y_pred), 3))
              + "\nr2_score: " + str(round((r2_score(y_test, y_pred)), 3))
              + "\nIntercept " + str(round(new_model.intercept_, 3))
              , fontsize=10, bbox=dict(facecolor='red', alpha=0.5))
@@ -95,7 +95,7 @@ def linear_regression(X, y, plot_title, x_name, y_name):
 
 
 #  Polynomial regression
-def polynomial_regression(X, y, plot_title, x_name, y_name, degree: int):
+def polynomial_regression(X, y, plot_title, x_name, y_name, degree: int, tx, ty):
     X = numpy.array(X).reshape(-1, 1)
     y = numpy.array(y)
 
@@ -131,7 +131,7 @@ def polynomial_regression(X, y, plot_title, x_name, y_name, degree: int):
     plt.scatter(X_train, y_train, color='red', label="train")  # plotting the training set
     plt.scatter(X_test, y_test, color='blue', label="test")  # plotting the test set
     plt.scatter(X, y_pred, color='black', label="prediction")
-    plt.text(400, 150,
+    plt.text(tx, ty,
              "MSE: " + str(round(mean_squared_error(y, y_pred), 3))
              + "\nr2_score: " + str(round(r_sq, 3))
              + "\nIntercept: " + str(round(intercept, 3))
@@ -157,11 +157,16 @@ def hist_rt_nartists(response_times_art_def, number_artists, endpoint, cpu, bin_
 
     rts = []
     for rt in response_times_art_def:
+<<<<<<< HEAD
         count = response_times_art_def.count(rt)
         element = {"count": count, "response_times": int(rt)}
         if element not in rts:
             print(element)
             rts.append(element)
+=======
+        element = {"response_times": int(rt)}
+        rts.append(element)
+>>>>>>> Develop
     df = pd.DataFrame(rts)
 
     # PLOT OUTPUT
@@ -178,5 +183,33 @@ def hist_rt_nartists(response_times_art_def, number_artists, endpoint, cpu, bin_
 
     # Plot title
     plt.title("Histogram: " + endpoint + "\nNumber Artists required: " + str(number_artists))
+
+    plt.show()
+
+
+# Histogram which counts number that a response times of find all albums with a number of albums defined, is repeating.
+def hist_rt_nalbums(response_times_alb_def, number_albums, endpoint, cpu, bin_space, bin_width):
+    rts = []
+    for rt in response_times_alb_def:
+        element = {"response_times": int(rt)}
+        print(rt)
+        rts.append(element)
+    df = pd.DataFrame(rts)
+
+    # PLOT OUTPUT
+    plt.figure(figsize=(5, 8))
+
+    # Histogram
+
+    plt.hist(df, bins=np.arange(min(df['response_times']), max(df['response_times']) + bin_space, bin_width), histtype='stepfilled')
+
+    # naming the x axis
+    plt.xlabel("response times(ms)")
+
+    # naming the y axis
+    plt.ylabel("count")
+
+    # Plot title
+    plt.title("Histogram: " + endpoint + "\nNumber Albums required: " + str(number_albums))
 
     plt.show()

@@ -22,7 +22,6 @@ def post_artists(artists):
             pass
 
 
-
 def get_all_artists(value: int):
     url_find_all_artists = "http://localhost:8080/artist/findallartists/" + str(value)
     try:
@@ -43,6 +42,17 @@ def post_albums(albums):
             print("JSON RESPONSE", response.json())
         except json.decoder.JSONDecodeError:
             pass
+
+
+def get_all_albums(value: int):
+    url_find_all_albums = "http://localhost:8080/album/findallalbums/"+ str(value)
+    try:
+        response = requests.get(url_find_all_albums)
+        total_elements = int(response.json()['totalElements'])
+    except json.decoder.JSONDecodeError:
+        total_elements = 0
+        pass
+    return total_elements
 
 
 def post_tracks(tracks):
