@@ -45,33 +45,19 @@ def main():
         linear_regression(number_artist, response_times, "Linear Regression\nEndpoint: findallartists"
                           + "\nCPU: " + cpu + "\nMemory:" + memory, "number artists", "response time(ms)", 400, 150)
 
-<<<<<<< HEAD
-    # POLYNOMIAL REGRESSIONS
-    # Choose number of polynomial regression that you want to plot
-    print(
-        "\nBefore to plot polynomial regressions, choose the number of polynomial regressions that you want to plot: (Minimum 1)")
-    number_plot_pr = int(input())
-=======
+
+
         # POLYNOMIAL REGRESSIONS
         # Choose number of polynomial regression that you want to plot
         print(
             "\nBefore to plot polynomial regressions, choose the number of polynomial regressions that you want to plot: (Minimum 1)")
         number_plot_pr = int(input())
->>>>>>> Develop
+
 
         if number_plot_pr == 0:
             number_plot_pr = 1
 
-<<<<<<< HEAD
-    x = 1
-    while x <= number_plot_pr:
-        print("Choose degree of polynomial regression: Minimum 2, Maximum 8 ")
-        degree = int(input())
-        if degree < 2 or degree > 8:
-            degree = 2  # parameter to express the degree of polynomial regression
-        polynomial_regression(number_artist, response_times, "Polynomial Regression\nEndpoint: findallartists"
-                              + "\nCPU: " + cpu + "\nMemory:" + memory, "number artists", "response time(ms)", degree)
-=======
+
         x = 1
         while x <= number_plot_pr:
             print("Choose degree of polynomial regression: Minimum 2, Maximum 8 ")
@@ -81,7 +67,7 @@ def main():
             polynomial_regression(number_artist, response_times, "Polynomial Regression\nEndpoint: findallartists"
                                   + "\nCPU: " + cpu + "\nMemory:" + memory, "number artists", "response time(ms)",
                                   degree, 400, 150)
->>>>>>> Develop
+
 
             x = x + 1
 
@@ -89,16 +75,7 @@ def main():
         print("\nWrite y or Y if you want to plot histogram of response times of a particular number of artists")
         defined_artists = str(input())
 
-<<<<<<< HEAD
-    if defined_artists == 'y' or defined_artists == "Y":
-        print("Write number artists ")
-        number_artists = int(input())
-        # Fetch response times associated with a number of artists required, defined
 
-        response_times_art_def, number_artist_def = catch_response_times_by_numberartists(dbmongo,
-                                                                                          "RT_findDefinedArtistsnumber_artists",
-                                                                                          cpu, memory, number_artists)
-=======
         if defined_artists == 'y' or defined_artists == "Y":
             print("Write number artists ")
             number_artists = int(input())
@@ -107,7 +84,7 @@ def main():
                                                                                               "RT_findDefinedArtistsnumber_artists",
                                                                                               cpu, memory,
                                                                                               number_artists)
->>>>>>> Develop
+
 
             # Histogram response_times count for artists number defined
             bin_space = 100
@@ -117,7 +94,6 @@ def main():
                              bin_width)
 
     """ALBUMS"""
-    
     print(
         "\nWrite y or Y if you want to plot the linear regression and polynomial regression of response times endpoint findallalbums")
     plot_albums = input()

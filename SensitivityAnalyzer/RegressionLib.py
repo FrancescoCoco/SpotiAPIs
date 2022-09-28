@@ -157,16 +157,9 @@ def hist_rt_nartists(response_times_art_def, number_artists, endpoint, cpu, bin_
 
     rts = []
     for rt in response_times_art_def:
-<<<<<<< HEAD
-        count = response_times_art_def.count(rt)
-        element = {"count": count, "response_times": int(rt)}
-        if element not in rts:
-            print(element)
-            rts.append(element)
-=======
         element = {"response_times": int(rt)}
         rts.append(element)
->>>>>>> Develop
+
     df = pd.DataFrame(rts)
 
     # PLOT OUTPUT
