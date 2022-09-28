@@ -21,6 +21,6 @@ class Album:
 
     def to_dict(self):
         artists = [artist.to_dict() for artist in self.artists]
-        return {"id": self.id, "name": self.name, "release_date": self.release_date, "totalTrack": self.totalTrack,
+        return {"id": self.id, "name": self.name, "release_date": self.release_date, "total_track": self.totalTrack,
                 "album_type": self.album_type, "uri": self.uri, "artists": artists
                 }

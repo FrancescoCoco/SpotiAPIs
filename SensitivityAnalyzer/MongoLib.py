@@ -51,3 +51,12 @@ def get_items_from_collection_by_numberartists(dbmongo: Database[Mapping[str, An
         "memory": {"$eq": memory},
         "number_artists": {"$eq": number_artists}
     })
+
+
+def get_items_from_collection_by_numberalbums(dbmongo: Database[Mapping[str, Any]], namecollection, cpu, memory,
+                                              number_albums):
+    return dbmongo.get_collection(namecollection).find({
+        "cpu": {"$eq": cpu},
+        "memory": {"$eq": memory},
+        "number_albums": {"$eq": number_albums}
+    })
