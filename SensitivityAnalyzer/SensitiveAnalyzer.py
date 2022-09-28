@@ -79,19 +79,13 @@ def main():
                                                                                               cpu, memory,
                                                                                               number_artists)
 
-<<<<<<< HEAD
+
         # Histogram response_times count for artists number defined
         bin_space = 10
         bin_width = 10
         hist_rt_nartists(response_times_art_def, number_artists,
                          "Endpoint: findallartists" + "\nCPU: " + cpu + "\nMemory:" + memory, cpu, bin_space, bin_width)
-=======
-            # Histogram response_times count for artists number defined
-            bin_space = 100
-            bin_width = 50
-            hist_rt_nartists(response_times_art_def, number_artists,
-                             "Endpoint: findallartists" + "\nCPU: " + cpu + "\nMemory:" + memory, cpu, bin_space,
-                             bin_width)
+
 
     """ALBUMS"""
     
@@ -151,7 +145,6 @@ def main():
             hist_rt_nalbums(response_times_alb_def, number_album,
                             "Endpoint: findallalbums" + "\nCPU: " + cpu + "\nMemory:" + memory, cpu, bin_space,
                             bin_width)
->>>>>>> Develop
 
 
 # Get the response time of artists
