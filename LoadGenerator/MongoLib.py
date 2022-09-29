@@ -6,7 +6,10 @@
 ██║░╚═╝░██║╚█████╔╝██║░╚███║╚██████╔╝╚█████╔╝███████╗██║██████╦╝
 ╚═╝░░░░░╚═╝░╚════╝░╚═╝░░╚══╝░╚═════╝░░╚════╝░╚══════╝╚═╝╚═════╝░
 """
+from typing import Mapping, Any
+
 import pymongo
+from pymongo.database import Database
 
 
 def mongo_auth():
@@ -35,4 +38,11 @@ def verify_collection(dbmongo, namecollection, cpu, memory):
 
 def get_items_from_collection(dbmongo, namecollection):
     mycol = dbmongo[namecollection]
-    return mycol.find_one()
+    return mycol.fi
+
+
+def get_items_from_collection(dbmongo: Database[Mapping[str, Any]], namecollection, cpu, memory):
+    return dbmongo.get_collection(namecollection).find({
+        "cpu": {"$eq": cpu},
+        "memory": {"$eq": memory},
+    })
