@@ -39,13 +39,12 @@ def main():
 
     total_albums = None
 
-
     """ARTIST"""
 
     print("Do you want to add artist in SPOTIAPIDB? y or Y for yes ")
     added_artist = input()
 
-    if added_artist == 'y' or added_artist =='Y':
+    if added_artist == 'y' or added_artist == 'Y':
         print("Choose number of artists that you want to add: Minimum(50)")
         number_artist = int(input())
         if number_artist < 50:
@@ -53,7 +52,6 @@ def main():
         artists_db = spMth.push_item(sp, "artists", number_artist)
         print("Artists founded by spotify, attended to load in the SPOTIAPIDB", len(artists_db))
         rAPIs.post_artists(artists_db)
-
 
     total_artists = RequestAPIs.get_all_artists(1)
 
@@ -70,7 +68,6 @@ def main():
         print("Digit the number of artists  ")
         number_artists = int(input())
         collect_rt_artists_defined(dbmongo, prom, number_artists, total_requests, cpu, mem)
-
 
     """ALBUMS"""
 
@@ -94,13 +91,11 @@ def main():
         collect_metrics_albums(dbmongo, prom, total_albums, cpu, mem)
 
     # Collect response times associated with a number of albums required, defined
-    print("If you want to collect response times of a particular number of albums digits y or Y ")
+    print("\nDo you want to optimize the response times of findallalbums endpoint? digit y or Y for yes ")
     defined_albums = str(input())
+
     if defined_albums == 'y' or defined_albums == 'Y':
-        total_requests = 10
-        print("Digit the number of albums")
-        number_albums = int(input())
-        collect_rt_albums_defined(dbmongo, prom, number_albums, total_requests, cpu, mem)
+        optimization_rt_album(dbmongo, "RT_FindAllAlbums", prom, cpu, mem, 5)
 
 
 # Collect metrics artist in mongodb
@@ -120,6 +115,7 @@ def collect_metrics_artist(dbmongo, prom, total_artists, cpu, memory):
     random.shuffle(list_metrics_mongo)
     mycol = dbmongo['RT_FindAllArtists']
     mycol.insert_many(list_metrics_mongo)
+
 
 # Collect response times of defined number of artist in different times
 def collect_rt_artists_defined(dbmongo, prom, number_artists, total_request, cpu, memory):
@@ -156,7 +152,14 @@ def collect_metrics_albums(dbmongo, prom, total_albums, cpu, memory):
 
 
 # Collect response times of defined number of album in different times
-def collect_rt_albums_defined(dbmongo, prom, number_albums, total_request, cpu, memory):
+def insert_rt_albums_in_mongo(dbmongo, prom, number_albums, total_request, cpu, memory):
+    list_metrics_mongo = collect_rt_albums_defined(prom, number_albums, total_request, cpu, memory)
+    random.shuffle(list_metrics_mongo)
+    mycol = dbmongo["RT_findDefinedAlbumsnumber_albums"]
+    mycol.insert_many(list_metrics_mongo)
+
+
+def collect_rt_albums_defined(prom, number_albums, total_request, cpu, memory):
     x = 1
     list_metrics_mongo = []
     while x <= total_request:
@@ -165,9 +168,28 @@ def collect_rt_albums_defined(dbmongo, prom, number_albums, total_request, cpu, 
         metric_mongo = prl.get_resp_time_findallalbums(prom, number_albums, cpu, memory)
         list_metrics_mongo.append(metric_mongo)
         x = x + 1
-    mycol = dbmongo['RT_findDefinedAlbums' + 'number_albums']
-    random.shuffle(list_metrics_mongo)
-    mycol.insert_many(list_metrics_mongo)
+    return list_metrics_mongo
+
+
+def optimization_rt_album(dbmongo, collection, prom, cpu, mem, total_requests):
+    rt_albums_optimized = []
+    rt_albums = ml.get_items_from_collection(dbmongo, collection, cpu, mem)
+    for rt_album in rt_albums:
+        rt_albums_opt = []
+        number_album = rt_album['number_albums']
+        rt_albums_opt_cp = collect_rt_albums_defined(prom, number_album, total_requests, cpu, mem)
+        for rt_album_opt_cp in rt_albums_opt_cp:
+            rt_album_opt = rt_album_opt_cp['response_time']
+            rt_albums_opt.append(rt_album_opt)
+        print({"response_time": most_frequent(rt_albums_opt), "number_albums": number_album, "cpu": cpu, "memory": mem})
+        rt_albums_optimized.append(
+            {"response_time": most_frequent(rt_albums_opt), "number_albums": number_album, "cpu": cpu, "memory": mem})
+    random.shuffle(rt_albums_optimized)
+    dbmongo['Response_times_optimized_albums'].insert_many(rt_albums_optimized)
+
+
+def most_frequent(List):
+    return max(set(List), key=List.count)
 
 
 if __name__ == "__main__":
