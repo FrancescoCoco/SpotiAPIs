@@ -38,7 +38,7 @@ def verify_collection(dbmongo, namecollection, cpu, memory):
 
 def get_items_from_collection(dbmongo, namecollection):
     mycol = dbmongo[namecollection]
-    return mycol.fi
+    return mycol.find_one()
 
 
 def get_items_from_collection(dbmongo: Database[Mapping[str, Any]], namecollection, cpu, memory):
