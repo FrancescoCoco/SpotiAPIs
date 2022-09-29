@@ -30,7 +30,7 @@ def main():
 
     """ARTIST"""
     print(
-        "\nWrite y or Y if you want to plot the linear regression and polynomial regression of response times endpoint findallartists")
+        "\nWrite y or Y if you want to plot the linear regression and non linear regression of response times endpoint findallartists")
     plot_artist = input()
     if plot_artist == 'y' or plot_artist == 'Y':
         # Catch dataset
@@ -45,10 +45,10 @@ def main():
         linear_regression(number_artist, response_times, "Linear Regression\nEndpoint: findallartists"
                           + "\nCPU: " + cpu + "\nMemory:" + memory, "number artists", "response time(ms)", 400, 150)
 
-        # POLYNOMIAL REGRESSIONS
-        # Choose number of polynomial regression that you want to plot
+        # NON LINEAR  REGRESSIONS
+        # Choose number of non linear  regression that you want to plot
         print(
-            "\nBefore to plot polynomial regressions, choose the number of polynomial regressions that you want to plot: (Minimum 1)")
+            "\nBefore to plot non linear regressions, choose the number of non linear regressions that you want to plot: (Minimum 1)")
         number_plot_pr = int(input())
 
         if number_plot_pr == 0:
@@ -56,11 +56,11 @@ def main():
 
         x = 1
         while x <= number_plot_pr:
-            print("Choose degree of polynomial regression: Minimum 2, Maximum 8 ")
+            print("Choose degree of non linear regression: Minimum 2, Maximum 8 ")
             degree = int(input())
             if degree < 2 or degree > 8:
-                degree = 2  # parameter to express the degree of polynomial regression
-            polynomial_regression(number_artist, response_times, "Polynomial Regression\nEndpoint: findallartists"
+                degree = 2  # parameter to express the degree of non linear regression
+            polynomial_regression(number_artist, response_times, "Non linear Regression\nEndpoint: findallartists"
                                   + "\nCPU: " + cpu + "\nMemory:" + memory, "number artists", "response time(ms)",
                                   degree, 400, 150)
 
@@ -90,7 +90,7 @@ def main():
     """ALBUMS"""
     
     print(
-        "\nWrite y or Y if you want to plot the linear regression and polynomial regression of response times endpoint findallalbums")
+        "\nWrite y or Y if you want to plot the linear regression and non linear regression of response times endpoint findallalbums")
     plot_albums = input()
     if plot_albums == 'y' or plot_albums == 'Y':
 
@@ -103,12 +103,12 @@ def main():
                           "number albums", "response time(ms)")
         # linear regression
         linear_regression(number_albums, response_times_alb, "Linear Regression\nEndpoint: findallalbums"
-                          + "\nCPU: " + cpu + "\nMemory:" + memory, "number albums", "response time(ms)", 100, 15)
+                          + "\nCPU: " + cpu + "\nMemory:" + memory, "number albums", "response time(ms)", 100, 30)
 
-        # POLYNOMIAL REGRESSIONS
-        # Choose number of polynomial regression that you want to plot
+        # non linear  REGRESSIONS
+        # Choose number of non linear regression that you want to plot
         print(
-            "\nBefore to plot polynomial regressions, choose the number of polynomial regressions that you want to plot: (Minimum 1)")
+            "\nBefore to plot non linear  regressions, choose the number of non linear regressions that you want to plot: (Minimum 1)")
         number_plot_pr = int(input())
 
         if number_plot_pr == 0:
@@ -116,13 +116,13 @@ def main():
 
         x = 1
         while x <= number_plot_pr:
-            print("Choose degree of polynomial regression: Minimum 2, Maximum 8 ")
+            print("Choose degree of non linear regression: Minimum 2, Maximum 8 ")
             degree = int(input())
             if degree < 2 or degree > 8:
-                degree = 2  # parameter to express the degree of polynomial regression
-            polynomial_regression(number_albums, response_times_alb, "Polynomial Regression\nEndpoint: findallartists"
+                degree = 2  # parameter to express the degree of non linear regression
+            polynomial_regression(number_albums, response_times_alb, "non linear Regression\nEndpoint: findallartists"
                                   + "\nCPU: " + cpu + "\nMemory:" + memory, "number albums", "response time(ms)",
-                                  degree, 100, 15)
+                                  degree, 100, 30)
 
             x = x + 1
 
@@ -145,6 +145,44 @@ def main():
             hist_rt_nalbums(response_times_alb_def, number_album,
                             "Endpoint: findallalbums" + "\nCPU: " + cpu + "\nMemory:" + memory, cpu, bin_space,
                             bin_width)
+
+    print(
+        "\nWrite y or Y if you want to plot the linear regression and non linear regression of response times endpoint findallalbums optimized")
+    plot_albums = input()
+    if plot_albums == 'y' or plot_albums == 'Y':
+        # Catch dataset
+        response_times_alb, number_albums = catch_rt_albums(dbmongo, 'Response_times_optimized_albums', cpu, memory)
+
+        # plot original model
+        scatterplot_model(number_albums, response_times_alb, "Endpoint: findallalbums"
+                          + "\nCPU: " + cpu + "\nMemory:" + memory,
+                          "number albums", "response time(ms)")
+        # linear regression
+        linear_regression(number_albums, response_times_alb, "Linear Regression\nEndpoint: findallalbums"
+                          + "\nCPU: " + cpu + "\nMemory:" + memory, "number albums", "response time(ms)", 100, 30)
+
+        # non linear  REGRESSIONS
+        # Choose number of non linear regression that you want to plot
+        print(
+            "\nBefore to plot non linear  regressions, choose the number of non linear regressions that you want to plot: (Minimum 1)")
+        number_plot_pr = int(input())
+
+        if number_plot_pr == 0:
+            number_plot_pr = 1
+
+        x = 1
+        while x <= number_plot_pr:
+            print("Choose degree of non linear regression: Minimum 2, Maximum 8 ")
+            degree = int(input())
+            if degree < 2 or degree > 8:
+                degree = 2  # parameter to express the degree of non linear regression
+            polynomial_regression(number_albums, response_times_alb, "non linear Regression\nEndpoint: findallartists"
+                                  + "\nCPU: " + cpu + "\nMemory:" + memory, "number albums", "response time(ms)",
+                                  degree, 100, 30)
+
+            x = x + 1
+
+
 
 
 # Get the response time of artists
