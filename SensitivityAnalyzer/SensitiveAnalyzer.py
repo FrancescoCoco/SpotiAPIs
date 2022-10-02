@@ -119,7 +119,7 @@ def main():
             degree = int(input())
             if degree < 2 or degree > 8:
                 degree = 2  # parameter to express the degree of non linear regression
-            polynomial_regression(number_albums, response_times_alb, "non linear Regression\nEndpoint: findallartists"
+            polynomial_regression(number_albums, response_times_alb, "non linear Regression\nEndpoint: findallalbum"
                                   + "\nCPU: " + cpu + "\nMemory:" + memory, "number albums", "response time(ms)",
                                   degree, 100, 30)
 
